@@ -1,0 +1,57 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+header img {
+    width: 100px;
+    margin-right: 20px;
+}
+
+
+
+h1 {
+    font-size: 1.8em; /* Réduis la taille du texte pour moins d'espace */
+    margin:0; /* Réduire les marges si le texte prend trop de place */
+}
+
+nav {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+}
+
+main {
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+section {
+    background-color: #ddd;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+aside {
+    background-color: #66CCFF;
+    color: white;
+    padding: 10px;
+    width: 30%;
+    float: right;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    text-align:center;
+}
