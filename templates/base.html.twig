@@ -1,77 +1,92 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
 
-
-
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
 
-<style>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
 
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-    }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
 
+        header img {
+            width: 100px;
+            margin-right: 20px;
+        }
 
-    header {
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px;
-        text-align: center;
-    }
+        h1 {
+            font-size: 1.8em;
+            margin: 0;
+        }
 
-    header img {
-        width: 100px;
-        margin-right: 20px;
-    }
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
 
-    h1 {
-        font-size: 1.8em; /* Réduis la taille du texte pour moins d'espace */
-        margin:0; /* Réduire les marges si le texte prend trop de place */
-    }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
 
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
 
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1em;
+        }
 
-    nav {
-        background-color: #333;
-        color: white;
-        padding: 10px;
-    }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
 
-    main {
-        background-color: #f2f2f2;
-        padding: 20px;
-    }
+        main {
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
 
-    section {
-        background-color: #ddd;
-        padding: 10px;
-        margin-bottom: 20px;
-    }
+        section {
+            background-color: #ddd;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
 
-    aside {
-        background-color: #66CCFF;
-        color: white;
-        padding: 10px;
-        width: 30%;
-        float: right;
-    }
+        aside {
+            background-color: #66CCFF;
+            color: white;
+            padding: 10px;
+            width: 30%;
+            float: right;
+        }
 
-    footer {
-        background-color: #333;
-        color: white;
-        padding: 10px;
-        text-align: center;
-    }
-</style>
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+    </style>
 
     {% block stylesheets %}
     {% endblock %}
-
 
     {% block javascripts %}
     {% endblock %}
@@ -82,23 +97,27 @@
 <header>
     <div>
         <img src="{{ asset('Images/logo copie.png') }}" alt="Logo">
-
         <h1>Avec VELIKO roulez comme un pro</h1>
     </div>
 </header>
+
+<!-- Barre de menu -->
+<nav>
+    <ul>
+        <li><a href="#se-connecter">Se connecter</a></li>
+        <li><a href="#decouvrir">Découvrir Veliko</a></li>
+        <li><a href="#carte">Carte des stations</a></li>
+        <li><a href="#contacter">Contacter Veliko</a></li>
+    </ul>
+</nav>
 
 <main>
     {% block body %}
     {% endblock %}
 </main>
+
 <footer>
     <p>© Tous droits réservés à l'entreprise.</p>
 </footer>
 </body>
 </html>
-
-
-
-
-
-
