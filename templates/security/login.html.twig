@@ -1,42 +1,185 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Connexion{% endblock %}
 
 {% block body %}
-    <form method="post">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+
+        .container {
+            border: solid 1px #8d8d8d;
+            padding: 40px;
+            border-radius: 10px;
+            background-color: #fff;
+            max-width: 300px;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            min-height: 400px;
+        }
+
+        .container .heading {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .input-field {
+            position: relative;
+        }
+
+        .input-field label {
+            position: absolute;
+            color: #8d8d8d;
+            left: 10px;
+            transform: translateY(0.6rem);
+            transition: all 0.3s ease;
+        }
+
+        .input-field input {
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 6px;
+            border: solid 1px #8d8d8d;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .input-field input:focus,
+        .input-field input:valid {
+            outline: none;
+            border: solid 1px #4CAF50;
+        }
+
+        .input-field input:focus ~ label,
+        .input-field input:valid ~ label {
+            transform: translateY(-51%) translateX(-10px) scale(0.8);
+            background-color: #fff;
+            padding: 0px 5px;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .form .btn-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .form .btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #4CAF50, #208028);
+            color: #fff;
+            font-weight: bolder;
+            transition: all 0.2s ease;
+            box-shadow: 0px 2px 3px #000d3848;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .signup-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .signup-link a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .alert {
+            color: #ff4f4f;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .passicon {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+    </style>
+
+    <div class="container">
+        <div class="heading">Connexion</div>
+        <br>
         {% if error %}
-            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            <div class="alert">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
         {% endif %}
 
         {% if app.user %}
-            <div class="mb-3">
-                You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+            <div class="alert">
+                Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
+            </div>
+        {% else %}
+            <form method="post" class="form">
+                <div class="input-field">
+                    <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
+                    <label for="username">Email</label>
+                </div>
+
+                <div class="input-field">
+                    <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+                    <label for="password">Mot de passe</label>
+                    <i class="passicon" onclick="togglePasswordVisibility()">👁</i>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                <div class="btn-container">
+                    <button type="submit" class="btn">Connexion</button>
+                </div>
+            </form>
+            <div class="signup-link">
+                <span>Pas encore de compte ? <a href="{{ path('app_register') }}">S'inscrire</a></span>
             </div>
         {% endif %}
+    </div>
 
-        <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-        <label for="username">Email</label>
-        <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
-        <label for="password">Password</label>
-        <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
-        <input type="hidden" name="_csrf_token"
-               value="{{ csrf_token('authenticate') }}"
-        >
+    <script>
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const passIcon = document.querySelector('.passicon');
 
-        {#
-            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-            See https://symfony.com/doc/current/security/remember_me.html
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                passIcon.textContent = '🙈';
+            } else {
+                passwordInput.type = 'password';
+                passIcon.textContent = '👁';
+            }
+        }
+    </script>
 
-            <div class="checkbox mb-3">
-                <input type="checkbox" name="_remember_me" id="_remember_me">
-                <label for="_remember_me">Remember me</label>
-            </div>
-        #}
-
-        <button class="btn btn-lg btn-primary" type="submit">
-            Sign in
-        </button>
-        <a href="{{ path('app_register') }}">Inscription</a>
-
-    </form>
 {% endblock %}
