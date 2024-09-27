@@ -83,6 +83,9 @@
             padding: 10px;
             text-align: center;
         }
+
+
+
     </style>
 
     {% block stylesheets %}
@@ -121,8 +124,34 @@
     {% endblock %}
 </main>
 
-<footer>
-    <p>© Tous droits réservés à l'entreprise.</p>
+<footer style="background-color: #333; color: white; padding: 20px; font-family: Arial, sans-serif;">
+    <div style="display: flex; justify-content: space-between; flex-wrap: wrap; max-width: 1200px; margin: auto;">
+        <div style="flex: 1 1 300px; margin-right: 20px;">
+            <h3>À propos de nous</h3>
+            <p>VVeliko est une application qui vous permet de consulter en temps réel la disponibilité des 19 000 vélos urbains à Paris et en Île-de-France, dont 40 % à assistance électrique. </div>
+        <div style="flex: 1 1 300px; margin-right: 20px;">
+            <h3>Liens rapides</h3>
+            <ul style="list-style-type: none; padding: 0;">
+                <li><a href="{{ path('app_home') }}" style="color: white; text-decoration: none;">Accueil</a></li>
+                <li><a href="{{ path('app_login') }}" style="color: white; text-decoration: none;">Se connecter</a></li>
+                <li><a href="#decouvrir" style="color: white; text-decoration: none;">Découvrir Veliko</a></li>
+                <li><a href="#contacter" style="color: white; text-decoration: none;">Contacter Veliko</a></li>
+            </ul>
+        </div>
+        <div style="flex: 1 1 300px;">
+            <h3>Suivez-nous</h3>
+            <div>
+                <a href="#" style="color: white; margin-right: 10px;">Facebook</a>
+                <a href="#" style="color: white; margin-right: 10px;">Twitter</a>
+                <a href="#" style="color: white;">Instagram</a>
+            </div>
+        </div>
+    </div>
+    <div style="text-align: center; margin-top: 20px;">
+        <p>© {{ "now"|date("Y") }} Tous droits réservés à l'entreprise.</p>
+    </div>
 </footer>
+
+
 </body>
 </html>

@@ -19,7 +19,7 @@
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.3.0/dist/MarkerCluster.Default.css" />
     <style type="text/css">
         #map {
-            height: 500px;
+            height: 600px;
         }
     </style>
 
@@ -46,9 +46,10 @@
 
 
 
+
             // Définir l'icône personnalisée
             var userIcon = L.icon({
-                iconUrl: '{{ asset('Images/user-logo.png') }}', // Remplacez par le chemin vers votre icône
+                iconUrl: '{{ asset('Images/user-logo.png') }}', // Chemin vers votre icône
                 iconSize: [32, 32], // Taille de l'icône
                 iconAnchor: [16, 32], // Point d'ancrage de l'icône
                 popupAnchor: [0, -32] // Point d'ancrage de la popup
@@ -65,6 +66,9 @@
             // Chargement des stations
             loadStations();
 
+
+
+
             // Centrer sur la géolocalisation de l'utilisateur si disponible
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(function (position) {
@@ -75,7 +79,8 @@
                     macarte.setView([userLat, userLon], 14);
 
                     // Ajouter un marqueur pour la position de l'utilisateur
-                    L.marker([userLat, userLon]).addTo(macarte).bindPopup("Vous êtes ici !").openPopup();
+                    // Ajouter un marqueur pour la position de l'utilisateur
+                    L.marker([userLat, userLon], { icon: userIcon }).addTo(macarte).bindPopup("Vous êtes ici !").openPopup();
                 }, function (error) {
                     console.error("Erreur lors de la récupération de la position :", error);
                 });
