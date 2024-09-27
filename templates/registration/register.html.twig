@@ -122,6 +122,12 @@
             text-align: center;
         }
 
+        .error {
+            color: #ff4f4f; /* Couleur rouge pour les erreurs */
+            font-weight: bold;
+            margin-top: 5px;
+            text-align: left; /* Alignement à gauche */
+        }
     </style>
 
     <div class="container">
@@ -132,19 +138,19 @@
 
         {{ form_start(registrationForm, { 'attr': { 'class': 'form' } }) }}
 
-        <!-- Champ Email -->
+
         <div class="input-field">
             {{ form_widget(registrationForm.email, { 'attr': { 'class': 'form-control', 'autocomplete': 'email', 'required': 'required' } }) }}
             <label for="{{ registrationForm.email.vars.id }}">Email</label>
         </div>
 
-        <!-- Champ Prénom -->
+
         <div class="input-field">
             {{ form_widget(registrationForm.prenom, { 'attr': { 'class': 'form-control', 'autocomplete': 'given-name', 'required': 'required' } }) }}
             <label for="{{ registrationForm.prenom.vars.id }}">Prénom</label>
         </div>
 
-        <!-- Champ Nom -->
+
         <div class="input-field">
             {{ form_widget(registrationForm.nom, { 'attr': { 'class': 'form-control', 'autocomplete': 'family-name', 'required': 'required' } }) }}
             <label for="{{ registrationForm.nom.vars.id }}">Nom</label>
@@ -154,6 +160,9 @@
         <div class="input-field">
             {{ form_widget(registrationForm.plainPassword, { 'attr': { 'class': 'form-control', 'autocomplete': 'new-password', 'required': 'required' } }) }}
             <label for="{{ registrationForm.plainPassword.vars.id }}">Mot de passe</label>
+
+            {# Afficher les messages d'erreur pour le champ de mot de passe #}
+            {{ form_errors(registrationForm.plainPassword, { 'attr': { 'class': 'error' } }) }}
         </div>
 
         <!-- Champ Date de naissance -->
@@ -163,19 +172,18 @@
         </div>
         {{ form_widget(registrationForm.dateNaissance, { 'attr': { 'class': 'form-control', 'required': 'required' } }) }}
 
-        <!-- Champ Adresse -->
+
+
         <div class="input-field">
             {{ form_widget(registrationForm.adresse, { 'attr': { 'class': 'form-control', 'required': 'required' } }) }}
             <label for="{{ registrationForm.adresse.vars.id }}">Adresse</label>
         </div>
 
-        <!-- Champ Ville -->
         <div class="input-field">
             {{ form_widget(registrationForm.ville, { 'attr': { 'class': 'form-control', 'required': 'required' } }) }}
             <label for="{{ registrationForm.ville.vars.id }}">Ville</label>
         </div>
 
-        <!-- Champ Code postal -->
         <div class="input-field">
             {{ form_widget(registrationForm.codePostale, { 'attr': { 'class': 'form-control', 'required': 'required' } }) }}
             <label for="{{ registrationForm.codePostale.vars.id }}">Code postal</label>
