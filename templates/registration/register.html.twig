@@ -1,27 +1,200 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
 
-    {{ form_errors(registrationForm) }}
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-    {{ form_row(registrationForm.dateNaissance) }}
-    {{ form_row(registrationForm.adresse) }}
-    {{ form_row(registrationForm.ville) }}
-    {{ form_row(registrationForm.codePostale) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
 
+        .container {
+            border: solid 1px #8d8d8d;
+            padding: 40px;
+            border-radius: 10px;
+            background-color: #fff;
+            max-width: 400px; /* Augmenter la largeur maximale pour un formulaire plus large */
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            min-height: 500px; /* Augmenter la hauteur minimale */
+        }
 
-    {{ form_end(registrationForm) }}
+        .container .heading {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
 
-    <button type="submit" class="btn">Register</button>
+        .form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .input-field {
+            position: relative;
+        }
+
+        .input-field label {
+            position: absolute;
+            color: #8d8d8d;
+            left: 10px;
+            transform: translateY(0.6rem);
+            transition: all 0.3s ease;
+        }
+
+        .input-field input {
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 6px;
+            border: solid 1px #8d8d8d;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .input-field input:focus,
+        .input-field input:valid {
+            outline: none;
+            border: solid 1px #4CAF50;
+        }
+
+        .input-field input:focus ~ label,
+        .input-field input:valid ~ label {
+            transform: translateY(-51%) translateX(-10px) scale(0.8);
+            background-color: #fff;
+            padding: 0px 5px;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .form .btn-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        .form .btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #4CAF50, #208028);
+            color: #fff;
+            font-weight: bolder;
+            transition: all 0.2s ease;
+            box-shadow: 0px 2px 3px #000d3848;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .signup-link {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .signup-link a {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .alert {
+            color: #ff4f4f;
+            font-weight: bold;
+            text-align: center;
+        }
+
+    </style>
+
+    <div class="container">
+        <div class="heading">Inscription</div>
+        <br>
+
+        {{ form_errors(registrationForm) }}
+
+        {{ form_start(registrationForm, { 'attr': { 'class': 'form' } }) }}
+
+        <!-- Champ Email -->
+        <div class="input-field">
+            {{ form_widget(registrationForm.email, { 'attr': { 'class': 'form-control', 'autocomplete': 'email', 'required': 'required' } }) }}
+            <label for="{{ registrationForm.email.vars.id }}">Email</label>
+        </div>
+
+        <!-- Champ Prénom -->
+        <div class="input-field">
+            {{ form_widget(registrationForm.prenom, { 'attr': { 'class': 'form-control', 'autocomplete': 'given-name', 'required': 'required' } }) }}
+            <label for="{{ registrationForm.prenom.vars.id }}">Prénom</label>
+        </div>
+
+        <!-- Champ Nom -->
+        <div class="input-field">
+            {{ form_widget(registrationForm.nom, { 'attr': { 'class': 'form-control', 'autocomplete': 'family-name', 'required': 'required' } }) }}
+            <label for="{{ registrationForm.nom.vars.id }}">Nom</label>
+        </div>
+
+        <!-- Champ Mot de passe -->
+        <div class="input-field">
+            {{ form_widget(registrationForm.plainPassword, { 'attr': { 'class': 'form-control', 'autocomplete': 'new-password', 'required': 'required' } }) }}
+            <label for="{{ registrationForm.plainPassword.vars.id }}">Mot de passe</label>
+        </div>
+
+        <!-- Champ Date de naissance -->
+        <div class="input-field">
+            <label for="{{ registrationForm.dateNaissance.vars.id }}">Date de naissance</label>
+            <br>
+        </div>
+        {{ form_widget(registrationForm.dateNaissance, { 'attr': { 'class': 'form-control', 'required': 'required' } }) }}
+
+        <!-- Champ Adresse -->
+        <div class="input-field">
+            {{ form_widget(registrationForm.adresse, { 'attr': { 'class': 'form-control', 'required': 'required' } }) }}
+            <label for="{{ registrationForm.adresse.vars.id }}">Adresse</label>
+        </div>
+
+        <!-- Champ Ville -->
+        <div class="input-field">
+            {{ form_widget(registrationForm.ville, { 'attr': { 'class': 'form-control', 'required': 'required' } }) }}
+            <label for="{{ registrationForm.ville.vars.id }}">Ville</label>
+        </div>
+
+        <!-- Champ Code postal -->
+        <div class="input-field">
+            {{ form_widget(registrationForm.codePostale, { 'attr': { 'class': 'form-control', 'required': 'required' } }) }}
+            <label for="{{ registrationForm.codePostale.vars.id }}">Code postal</label>
+        </div>
+
+        <!-- Acceptation des termes -->
+        <div class="input-field" style="display: flex; align-items: center;">
+            {{ form_widget(registrationForm.agreeTerms) }}
+            <label for="{{ registrationForm.agreeTerms.vars.id }}" style="margin-left: 8px;">J'accepte les termes et conditions</label>
+        </div>
+
+        <div class="btn-container">
+            <button type="submit" class="btn">S'inscrire</button>
+        </div>
+        {{ form_end(registrationForm) }}
+
+        <div class="signup-link">
+            <span>Déjà un compte ? <a href="{{ path('app_login') }}">Se connecter</a></span>
+        </div>
+    </div>
+
 {% endblock %}
-
-
