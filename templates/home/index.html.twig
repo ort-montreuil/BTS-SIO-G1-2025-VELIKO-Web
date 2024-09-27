@@ -85,8 +85,8 @@
 
         // Fonction pour charger et afficher les stations sur la carte
         function loadStations() {
-            {% for station1 in response.data.stations %}
-            {% set matching_station = response2.data.stations | filter(station => station.station_id == station1.station_id) | first %}
+            {% for station1 in response %}
+            {% set matching_station = response2 | filter(station => station.station_id == station1.station_id) | first %}
             {% if matching_station is not null %}
             var marker = L.marker([{{ station1.lat }}, {{ station1.lon }}]).bindPopup(
                 'Station: {{ station1.name }}<br>' +
