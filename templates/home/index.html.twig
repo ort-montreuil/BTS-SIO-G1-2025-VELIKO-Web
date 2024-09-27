@@ -94,6 +94,21 @@
                 'Nombre de vélos mécaniques : {{ matching_station.num_bikes_available_types[0].mechanical }}<br>' +
                 'Nombre de vélos électriques : {{ matching_station.num_bikes_available_types[1].ebike }}'
             );
+
+
+            //methode qui permet le survol des marker et qui affiche les infos
+            marker.bindTooltip(
+                '<b>Station: {{ station1.name }}</b><br>' +
+                'Vélos disponibles : {{ matching_station.num_bikes_available }}<br>' +
+                'Vélos mécaniques : {{ matching_station.num_bikes_available_types[0].mechanical }}<br>' +
+                'Vélos électriques : {{ matching_station.num_bikes_available_types[1].ebike }}'
+            );
+
+
+
+
+
+
             markerClusters.addLayer(marker); // Ajouter le marqueur au groupe de clusters
             {% endif %}
 

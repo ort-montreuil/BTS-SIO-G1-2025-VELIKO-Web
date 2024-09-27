@@ -94,16 +94,21 @@
 </head>
 <body>
 
+
 <header>
     <div>
-        <img src="{{ asset('Images/logo copie.png') }}" alt="Logo">
+        <a href="{{ path('app_home') }}">
+            <img src="{{ asset('Images/logo copie.png') }}" alt="Logo">
+        </a>
         <h1>Avec VELIKO roulez comme un pro</h1>
     </div>
 </header>
 
+
 <!-- Barre de menu -->
 <nav>
     <ul>
+
         <li><a href="{{ path('app_login') }}">Se connecter</a></li>
 
         <li><a href="#decouvrir">Découvrir Veliko</a></li>
