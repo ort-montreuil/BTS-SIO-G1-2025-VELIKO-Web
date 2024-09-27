@@ -11,6 +11,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -20,10 +21,19 @@ class RegistrationFormType extends AbstractType
             ->add('nom')
             ->add('prenom')
             ->add('email')
-            ->add('dateNaissance')
+
             ->add('adresse')
             ->add('ville')
             ->add('codePostale')
+
+            ->add('dateNaissance', DateType::class, [
+                'widget' => 'single_text',
+                'years' => range(1900, 2100),
+                'label' => 'Date de naissance',
+                'required' => true,
+            ])
+
+            //conditions
 
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
