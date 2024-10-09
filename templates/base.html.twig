@@ -84,8 +84,6 @@
             text-align: center;
         }
 
-
-
     </style>
 
     {% block stylesheets %}
@@ -97,7 +95,6 @@
 </head>
 <body>
 
-
 <header>
     <div>
         <a href="{{ path('app_home') }}">
@@ -106,19 +103,20 @@
         <h1>Avec VELIKO roulez comme un pro</h1>
     </div>
 </header>
-
-
 <!-- Barre de menu -->
 <nav>
     <ul>
 
-        <li><a href="{{ path('app_login') }}">Se connecter</a></li>
-
+        {% if app.user %}
+            <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+        {% else %}
+            <li><a href="{{ path('app_login') }}">Se connecter</a></li>
+        {% endif %}
         <li><a href="#decouvrir">Découvrir Veliko</a></li>
-
         <li><a href="#contacter">Contacter Veliko</a></li>
     </ul>
 </nav>
+
 <main>
     {% block body %}
     {% endblock %}
@@ -128,12 +126,17 @@
     <div style="display: flex; justify-content: space-between; flex-wrap: wrap; max-width: 1200px; margin: auto;">
         <div style="flex: 1 1 300px; margin-right: 20px;">
             <h3>À propos de nous</h3>
-            <p>VVeliko est une application qui vous permet de consulter en temps réel la disponibilité des 19 000 vélos urbains à Paris et en Île-de-France, dont 40 % à assistance électrique. </div>
+            <p>Veliko est une application qui vous permet de consulter en temps réel la disponibilité des 19 000 vélos urbains à Paris et en Île-de-France, dont 40 % à assistance électrique. </p>
+        </div>
         <div style="flex: 1 1 300px; margin-right: 20px;">
             <h3>Liens rapides</h3>
             <ul style="list-style-type: none; padding: 0;">
                 <li><a href="{{ path('app_home') }}" style="color: white; text-decoration: none;">Accueil</a></li>
-                <li><a href="{{ path('app_login') }}" style="color: white; text-decoration: none;">Se connecter</a></li>
+                {% if app.user %}
+                    <li><a href="{{ path('app_logout') }}" style="color: white; text-decoration: none;">Déconnexion</a></li>
+                {% else %}
+                    <li><a href="{{ path('app_login') }}" style="color: white; text-decoration: none;">Se connecter</a></li>
+                {% endif %}
                 <li><a href="#decouvrir" style="color: white; text-decoration: none;">Découvrir Veliko</a></li>
                 <li><a href="#contacter" style="color: white; text-decoration: none;">Contacter Veliko</a></li>
             </ul>
@@ -151,7 +154,6 @@
         <p>© {{ "now"|date("Y") }} Tous droits réservés à l'entreprise.</p>
     </div>
 </footer>
-
 
 </body>
 </html>
