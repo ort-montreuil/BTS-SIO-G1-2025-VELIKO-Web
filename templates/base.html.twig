@@ -100,12 +100,16 @@
         <a href="{{ path('app_home') }}">
             <img src="{{ asset('Images/logo copie.png') }}" alt="Logo">
         </a>
+        {% if app.user %}
+            {{ app.user.nom }} {{ app.user.prenom }}
+        {% endif %}
         <h1>Avec VELIKO roulez comme un pro</h1>
     </div>
 </header>
 <!-- Barre de menu -->
 <nav>
     <ul>
+
 
         {% if app.user %}
             <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>

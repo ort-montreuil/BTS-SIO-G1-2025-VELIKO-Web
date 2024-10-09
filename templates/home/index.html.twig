@@ -97,7 +97,8 @@
                 'Station: {{ station1.name }}<br>' +
                 'Nombre de vélos restant : {{ matching_station.num_bikes_available }}<br>' +
                 'Nombre de vélos mécaniques : {{ matching_station.num_bikes_available_types[0].mechanical }}<br>' +
-                'Nombre de vélos électriques : {{ matching_station.num_bikes_available_types[1].ebike }}'
+                'Nombre de vélos électriques : {{ matching_station.num_bikes_available_types[1].ebike }}'+
+                '<form><input type="submit" value="Mettre en favori "></form>'
             );
 
 
@@ -108,11 +109,6 @@
                 'Vélos mécaniques : {{ matching_station.num_bikes_available_types[0].mechanical }}<br>' +
                 'Vélos électriques : {{ matching_station.num_bikes_available_types[1].ebike }}'
             );
-
-
-
-
-
 
             markerClusters.addLayer(marker); // Ajouter le marqueur au groupe de clusters
             {% endif %}
