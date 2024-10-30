@@ -18,16 +18,27 @@
             color: white;
             padding: 20px;
             text-align: center;
+            position: relative;
         }
 
         header img {
             width: 100px;
-            margin-right: 20px;
+            margin-bottom: 10px;
         }
 
         h1 {
             font-size: 1.8em;
             margin: 0;
+        }
+
+
+        .user-name {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2em;
         }
 
         nav {
@@ -63,20 +74,6 @@
             padding: 20px;
         }
 
-        section {
-            background-color: #ddd;
-            padding: 10px;
-            margin-bottom: 20px;
-        }
-
-        aside {
-            background-color: #66CCFF;
-            color: white;
-            padding: 10px;
-            width: 30%;
-            float: right;
-        }
-
         footer {
             background-color: #333;
             color: white;
@@ -96,21 +93,23 @@
 <body>
 
 <header>
-    <div>
-        <a href="{{ path('app_home') }}">
-            <img src="{{ asset('Images/logo copie.png') }}" alt="Logo">
-        </a>
+
+    <a href="{{ path('app_home') }}">
+        <img src="{{ asset('Images/logo copie.png') }}" alt="Logo">
+    </a>
+    <h1>Avec VELIKO roulez comme un pro</h1>
+
+
+    <div class="user-name">
         {% if app.user %}
             {{ app.user.nom }} {{ app.user.prenom }}
         {% endif %}
-        <h1>Avec VELIKO roulez comme un pro</h1>
     </div>
 </header>
+
 <!-- Barre de menu -->
 <nav>
     <ul>
-
-
         {% if app.user %}
             <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
         {% else %}
