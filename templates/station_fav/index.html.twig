@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello StationFavController!{% endblock %}
+
+
+{% block body %}
+    <h1>Mes Stations Favorites</h1>
+
+    {% if favoriteStations is empty %}
+        <p>Vous n'avez aucune station en favori.</p>
+    {% else %}
+        <ul>
+            {% for station in favoriteStations %}
+                <li>{{ station.name }} ({{ station.lat }}, {{ station.lon }})</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
