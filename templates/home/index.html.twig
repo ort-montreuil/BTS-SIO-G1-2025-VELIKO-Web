@@ -98,7 +98,9 @@
                 'Nombre de vélos restant : {{ matching_station.num_bikes_available is defined ? matching_station.num_bikes_available : "N/A" }}<br>' +
                 'Nombre de vélos mécaniques : {{ matching_station.num_bikes_available_types[0].mechanical is defined ? matching_station.num_bikes_available_types[0].mechanical : "N/A" }}<br>' +
                 'Nombre de vélos électriques : {{ matching_station.num_bikes_available_types[1].ebike is defined ? matching_station.num_bikes_available_types[1].ebike : "N/A" }}' +
-                '<form><input type="submit" value="Mettre en favori "></form>'
+                '<form action="{{ path('app_mes_stations', {id: station1.station_id}) }}" method="post">' +
+                '<input type="submit" value="Mettre en favori ">' +
+                '</form>'
             );
 
 
