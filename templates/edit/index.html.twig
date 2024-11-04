@@ -5,6 +5,7 @@
 {% block body %}
 
     <style>
+        /* CSS déjà présent */
         body {
             margin: 0;
             padding: 0;
@@ -28,63 +29,16 @@
             padding: 40px;
             border-radius: 10px;
             background-color: #fff;
-            max-width: 400px; /* Réduit la largeur maximale */
+            max-width: 400px;
             width: 100%;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .container .heading {
+        .heading {
             font-size: 1.5rem;
             margin-bottom: 20px;
             font-weight: bold;
             text-align: center;
-        }
-
-        .form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .input-field {
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .input-field label {
-            position: absolute;
-            color: #8d8d8d;
-            left: 10px;
-            top: 10px;
-            transition: all 0.3s ease;
-            pointer-events: none;
-        }
-
-        .input-field input {
-            padding: 15px 10px;
-            font-size: 0.9rem; /* Réduit la taille de la police */
-            border-radius: 15px; /* Bords plus arrondis */
-            border: solid 1px #8d8d8d;
-            width: 100%;
-            box-sizing: border-box;
-            transition: border 0.3s ease, box-shadow 0.3s ease;
-            margin-top: 15px; /* Espace supplémentaire au-dessus des inputs */
-            margin-bottom: 5px; /* Espace en bas des inputs */
-        }
-
-        .input-field input:focus {
-            outline: none;
-            border: solid 1px #4CAF50;
-            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
-        }
-
-        .input-field input:focus ~ label,
-        .input-field input:not(:placeholder-shown) ~ label {
-            transform: translateY(-20px) translateX(-5px) scale(0.8);
-            background-color: #fff;
-            padding: 0 5px;
-            color: #4CAF50;
-            font-weight: bold;
         }
 
         .btn-container {
@@ -106,8 +60,16 @@
             cursor: pointer;
         }
 
-        .btn:hover {
-            background: linear-gradient(135deg, #3e8e3e, #1c6a1c);
+        .btn-danger {
+            background-color: #c9302c;
+            color: #fff;
+            border: none;
+            transition: background-color 0.3s ease;
+            margin-left: 20px;
+        }
+
+        .btn-danger:hover {
+            background-color: #a72824;
         }
     </style>
 
@@ -121,5 +83,12 @@
         </div>
         {{ form_end(form) }}
     </div>
+
+    <form method="post" action="{{ path('app_delete', { id: user.id }) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ?');">
+        <input type="hidden" name="_method" value="DELETE">
+        <div class="btn-container">
+            <button type="submit" class="btn btn-danger">Supprimer mon compte</button>
+        </div>
+    </form>
 
 {% endblock %}

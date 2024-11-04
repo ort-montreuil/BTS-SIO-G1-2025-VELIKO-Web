@@ -31,7 +31,6 @@
             margin: 0;
         }
 
-
         .user-name {
             position: absolute;
             right: 20px;
@@ -80,7 +79,6 @@
             padding: 10px;
             text-align: center;
         }
-
     </style>
 
     {% block stylesheets %}
@@ -93,12 +91,10 @@
 <body>
 
 <header>
-
     <a href="{{ path('app_home') }}">
         <img src="{{ asset('Images/logo copie.png') }}" alt="Logo">
     </a>
     <h1>Avec VELIKO roulez comme un pro</h1>
-
 
     <div class="user-name">
         {% if app.user %}
@@ -107,22 +103,21 @@
     </div>
 </header>
 
-
-
-
-
 <!-- Barre de menu -->
 <nav>
     <ul>
         {% if app.user %}
+            <li><a href="{{ path('app_edit', { id: app.user.id }) }}">Mon compte</a></li>
             <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
         {% else %}
             <li><a href="{{ path('app_login') }}">Se connecter</a></li>
         {% endif %}
-        <li><a href="#decouvrir">Découvrir Veliko</a></li>
+        <li><a href="{{ path('app_decouvrir_veliko') }}">Découvrir Veliko</a></li>
+
         <li><a href="#contacter">Contacter Veliko</a></li>
     </ul>
 </nav>
+
 
 <main>
     {% block body %}
@@ -135,8 +130,6 @@
     {% for message in app.flashes('error') %}
         <div class="alert error">{{ message }}</div>
     {% endfor %}
-
-
 </main>
 
 <footer style="background-color: #333; color: white; padding: 20px; font-family: Arial, sans-serif;">
@@ -154,7 +147,7 @@
                 {% else %}
                     <li><a href="{{ path('app_login') }}" style="color: white; text-decoration: none;">Se connecter</a></li>
                 {% endif %}
-                <li><a href="#decouvrir" style="color: white; text-decoration: none;">Découvrir Veliko</a></li>
+                <li><a href="{{ path('app_decouvrir_veliko') }}" style="color: white; text-decoration: none;">Découvrir Veliko</a></li>
                 <li><a href="#contacter" style="color: white; text-decoration: none;">Contacter Veliko</a></li>
             </ul>
         </div>
