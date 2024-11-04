@@ -2,41 +2,83 @@
 
 namespace App\Controller;
 
+
 use App\Entity\User;
 use App\Form\RegistrationFormType;
+use Symfony\Component\Mime\Email;
+use App\GenerateToken\GenerateToken;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class RegistrationController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var string $plainPassword */
             $plainPassword = $form->get('plainPassword')->getData();
-
-            // encode the plain password
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
+
+            $token = GenerateToken::generateNewToken(32);
+            $user->setConfirmationToken($token);
 
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // do anything else you need here, like send an email
+            $confirmationUrl = $this->generateUrl('app_verification', ['token' => $token], UrlGeneratorInterface::ABSOLUTE_URL);
 
-            return $this->redirectToRoute('app_home');
+            $email = (new Email())
+                ->from('no-reply@tonsite.com')
+                ->to($user->getEmail())
+                ->subject('Confirmation de votre inscription')
+                ->html('<p>Merci pour votre inscription ! Cliquez sur le lien pour confirmer votre email : <a href="' . $confirmationUrl . '">Confirmer mon email</a></p>');
+
+            $mailer->send($email);
+
+            return $this->redirectToRoute('app_home', [
+                'message' => 'Un email de confirmation a été envoyé. Vérifiez votre boîte de réception.'
+            ]);
         }
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form,
         ]);
     }
+
+
+    public function confirmEmail(string $token, EntityManagerInterface $entityManager): Response
+    {
+        $user = $entityManager->getRepository(User::class)->findOneBy(['confirmationToken' => $token]);
+
+        if (!$user) {
+            $this->addFlash('error', 'Token de confirmation invalide.');
+            return $this->redirectToRoute('app_home');
+        }
+
+        // Confirmer l'utilisateur
+        $user->setVerified(1); // Mettre à jour la vérification ici
+        $user->setConfirmationToken(null);
+
+        $entityManager->flush();
+
+        $this->loginUser($user);
+
+        $this->addFlash('success', 'Votre compte a été confirmé avec succès !');
+        return $this->redirectToRoute('app_home');
+    }
+
+
+
 }
