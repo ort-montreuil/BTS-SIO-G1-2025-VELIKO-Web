@@ -98,9 +98,11 @@
                 'Nombre de vélos restant : {{ matching_station.num_bikes_available is defined ? matching_station.num_bikes_available : "N/A" }}<br>' +
                 'Nombre de vélos mécaniques : {{ matching_station.num_bikes_available_types[0].mechanical is defined ? matching_station.num_bikes_available_types[0].mechanical : "N/A" }}<br>' +
                 'Nombre de vélos électriques : {{ matching_station.num_bikes_available_types[1].ebike is defined ? matching_station.num_bikes_available_types[1].ebike : "N/A" }}' +
-                `<form action="{{ path('app_add_favorite', {'id': station1.station_id}) }}" method="post">
-        <button type="submit">Mettre en favori</button>
-    </form>`
+                `{% if app.user %}
+        <form action="{{ path('app_add_favorite', {'id': station1.station_id}) }}" method="post">
+            <button type="submit">Mettre en favori</button>
+        </form>
+    {% endif %}`
             );
 
 

@@ -31,7 +31,6 @@ class MesStationsController extends AbstractController
         /** @var User $user */ //sans cela, $user n'est pas reconnu comme un objet de la classe "User"
         $user = $this->getUser();
         $userId = $user->getId();
-        var_dump($userId);
         /** @var StationUserRepository $stationUserRepository */
         $stationUserRepository = $this->entityManager->getRepository(StationUser::class);
         $stationNames = [];
