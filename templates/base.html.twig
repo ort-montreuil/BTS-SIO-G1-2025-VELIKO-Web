@@ -109,6 +109,8 @@
         {% if app.user %}
             <li><a href="{{ path('app_edit', { id: app.user.id }) }}">Mon compte</a></li>
             <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
+            <li><a href="{{ path('app_mes_stations', { id: app.user.id }) }}">Mes Stations Favorites</a></li>
+
         {% else %}
             <li><a href="{{ path('app_login') }}">Se connecter</a></li>
         {% endif %}
@@ -130,6 +132,8 @@
     {% for message in app.flashes('error') %}
         <div class="alert error">{{ message }}</div>
     {% endfor %}
+
+
 </main>
 
 <footer style="background-color: #333; color: white; padding: 20px; font-family: Arial, sans-serif;">

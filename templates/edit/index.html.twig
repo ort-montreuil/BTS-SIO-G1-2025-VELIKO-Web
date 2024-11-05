@@ -84,6 +84,7 @@
         {{ form_end(form) }}
     </div>
 
+
     <form method="post" action="{{ path('app_delete', { id: user.id }) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ?');">
         <input type="hidden" name="_method" value="DELETE">
         <div class="btn-container">

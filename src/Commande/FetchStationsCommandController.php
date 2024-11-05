@@ -26,8 +26,14 @@ class FetchStationsCommandController extends Command
         // Création d'un client HTTP
         $client = HttpClient::create();
 
+        // Vérification si la variable d'environnement est définie
+        if (!isset($_ENV['API_VELIKO_URL'])) {
+            $output->writeln('Erreur: API_VELIKO_URL n\'est pas définie.');
+            return Command::FAILURE;
+        }
+
         // Récupération des données depuis l'API
-        $response = $client->request('GET', $_ENV['API_ VELIKO_URL'] . "/stations");
+        $response = $client->request('GET', $_ENV['API_VELIKO_URL'] . "/stations");
         $data = $response->toArray();
 
         // Affichage des données récupérées (débogage)
