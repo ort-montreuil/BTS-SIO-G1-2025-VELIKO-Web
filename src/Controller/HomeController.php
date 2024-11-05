@@ -59,10 +59,34 @@ class HomeController extends AbstractController
             $response = json_decode($response, true);
         }
 
+        $stations = [];
+
+
+        foreach ($response as $infostat) {
+            foreach ($response2 as $infovelo) {
+                if ($infostat['station_id'] == $infovelo['station_id']) {
+                    $stations_data = [
+                        'nom' => $infostat['name'],
+                        'lat' => $infostat['lat'],
+                        'lon' => $infostat['lon'],
+                        'vélosDisponible' => $infovelo['num_bikes_available'],
+                        'véloMechanique' => $infovelo['num_bikes_available_types'][0]['mechanical'],
+                        'véloElectrique' => $infovelo['num_bikes_available_types'][1]['ebike'],
+                        "id" => $infostat["station_id"]
+                    ];
+                    $stations[] = $stations_data; // opérateur d'assignation corrigé pour ajouter au tableau
+                    // var_dump($stations);
+                    break;
+
+                }
+            }
+        }
+
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'response'    => $response,
-            'response2'    => $response2
+            'response2'    => $response2,
+            'stations' => $stations
         ]);
     }
 }
