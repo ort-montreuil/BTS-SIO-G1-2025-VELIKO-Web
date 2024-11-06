@@ -2,12 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\StationUser;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
+    private EntityManagerInterface $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
     #[Route('/home', name: 'app_home')]
     public function index(): Response
     {
@@ -74,19 +82,33 @@ class HomeController extends AbstractController
                         'véloElectrique' => $infovelo['num_bikes_available_types'][1]['ebike'],
                         "id" => $infostat["station_id"]
                     ];
-                    $stations[] = $stations_data; // opérateur d'assignation corrigé pour ajouter au tableau
-                    // var_dump($stations);
+                    $stations[] = $stations_data;
                     break;
 
                 }
             }
         }
+        $user = $this->getUser();
+        $favoriteStationIds = [];
+
+        if ($user) {
+            $stationUserRepository = $this->entityManager->getRepository(StationUser::class);
+
+            // Obtenir les stations favorites de l'utilisateur
+            $favorites = $stationUserRepository->findBy(['idUser' => $user->getId()]);
+            $favoriteStationIds = array_map(function ($favorite) {
+                return $favorite->getIdStation();
+            }, $favorites);
+        }
+
+        // Votre code pour récupérer les données des stations...
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
-            'response'    => $response,
-            'response2'    => $response2,
-            'stations' => $stations
+            'response' => $response,
+            'response2' => $response2,
+            'stations' => $stations,
+            'favoriteStationIds' => $favoriteStationIds // Transmettez les IDs des stations favorites
         ]);
     }
 }
