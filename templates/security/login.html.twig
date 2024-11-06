@@ -165,7 +165,11 @@
                 <span>Pas encore de compte ? <a href="{{ path('app_register') }}">S'inscrire</a></span>
             </div>
         {% endif %}
+        <ul>
+            <a href="{{ path('app_forgot_password') }}">Réinitialiser votre mot de passe</a>
+        </ul>
     </div>
+
 
     <script>
         function togglePasswordVisibility() {
@@ -180,6 +184,7 @@
                 passIcon.textContent = '👁';
             }
         }
+
     </script>
 
 {% endblock %}

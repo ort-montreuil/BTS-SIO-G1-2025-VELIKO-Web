@@ -53,6 +53,56 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: Types::SMALLINT, options: ["default" => 0])] // 0 pour non vérifié, 1 pour vérifié
     private ?int $isVerified = 0; // Initialise à 0 (non vérifié)
 
+
+    //pr renitialiser le mot de passe
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $passwordResetToken = null;
+
+    #[ORM\Column(type: 'datetime', nullable: true)]
+    private ?\DateTimeInterface $passwordResetTokenExpiresAt = null;
+
+
+
+    public function generatePasswordResetToken(): void
+    {
+        $this->passwordResetToken = bin2hex(random_bytes(32));
+        $this->passwordResetTokenExpiresAt = new \DateTime('+1 hour');
+    }
+
+    public function getPasswordResetToken(): ?string
+    {
+        return $this->passwordResetToken;
+    }
+
+    public function getPasswordResetTokenExpiresAt(): ?\DateTimeInterface
+    {
+        return $this->passwordResetTokenExpiresAt;
+    }
+
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function setIsVerified(?int $isVerified): void
+    {
+        $this->isVerified = $isVerified;
+    }
+
+    public function setPasswordResetToken(?string $passwordResetToken): void
+    {
+        $this->passwordResetToken = $passwordResetToken;
+    }
+
+    public function setPasswordResetTokenExpiresAt(?\DateTimeInterface $passwordResetTokenExpiresAt): void
+    {
+        $this->passwordResetTokenExpiresAt = $passwordResetTokenExpiresAt;
+    }
+
+
+
+
+
     public function getId(): ?int
     {
         return $this->id;
