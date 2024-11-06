@@ -58,7 +58,6 @@ class MesStationsController extends AbstractController
 
         $idStation = $request->get("id");
         if ($idStation) {
-//            $this->entityManager->remove($idStation); impossible, car on n'a que des id dans l'entité stationUser pas d'object user et station
             $stationUserRepository->deleteStationByStationId($idStation);
             $this->entityManager->flush();
             $this->addFlash('Succès', 'Station supprimée.');
@@ -95,8 +94,6 @@ class MesStationsController extends AbstractController
 
             $this->addFlash('success', 'Station ajoutée aux favoris.');
         }
-
         return $this->redirectToRoute('app_mes_stations');
     }
-
 }

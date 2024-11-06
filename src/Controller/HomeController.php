@@ -19,6 +19,7 @@ class HomeController extends AbstractController
     #[Route('/home', name: 'app_home')]
     public function index(): Response
     {
+        // Récupérer les informations des stations
         $curl2 = curl_init();
 
         curl_setopt_array($curl2, [
@@ -42,7 +43,7 @@ class HomeController extends AbstractController
         } else {
             $response2 = json_decode($response2, true);
         }
-
+        //
         $curl = curl_init();
 
         curl_setopt_array($curl, [
@@ -69,7 +70,7 @@ class HomeController extends AbstractController
 
         $stations = [];
 
-
+        // afficher les informations des stations
         foreach ($response as $infostat) {
             foreach ($response2 as $infovelo) {
                 if ($infostat['station_id'] == $infovelo['station_id']) {
@@ -101,14 +102,13 @@ class HomeController extends AbstractController
             }, $favorites);
         }
 
-        // Votre code pour récupérer les données des stations...
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
             'response' => $response,
             'response2' => $response2,
             'stations' => $stations,
-            'favoriteStationIds' => $favoriteStationIds // Transmettez les IDs des stations favorites
+            'favoriteStationIds' => $favoriteStationIds
         ]);
     }
 }
