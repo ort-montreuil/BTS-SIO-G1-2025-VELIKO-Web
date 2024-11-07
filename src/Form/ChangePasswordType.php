@@ -16,4 +16,5 @@ class ChangePasswordType extends AbstractType
             ->add('confirmPassword', PasswordType::class)
             ->add('submit', SubmitType::class, ['label' => 'Modifier le mot de passe']);
     }
+
 }

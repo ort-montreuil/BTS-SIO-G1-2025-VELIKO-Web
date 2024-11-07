@@ -78,11 +78,24 @@
 
         {{ form_start(form, { 'attr': {'class': 'form'} }) }}
         {{ form_widget(form) }}
+
         <div class="btn-container">
             <button type="submit" class="btn">Modifier</button>
         </div>
         {{ form_end(form) }}
+
+
+        <div class="btn-container">
+            <a href="{{ path('app_user_modif_mdp') }}" class="btn-link">Appuyer ici pour modifier votre Mots de passe</a>
+        </div>
+
     </div>
+
+
+
+
+
+
 
 
     <form method="post" action="{{ path('app_delete', { id: user.id }) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ?');">
