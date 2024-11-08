@@ -112,11 +112,13 @@
             <li><a href="{{ path('app_mes_stations', { id: app.user.id }) }}">Mes Stations Favorites</a></li>
 
         {% else %}
+
+            <li><a href="{{ path('app_register') }}">S'inscrire</a></li>
             <li><a href="{{ path('app_login') }}">Se connecter</a></li>
         {% endif %}
         <li><a href="{{ path('app_decouvrir_veliko') }}">Découvrir Veliko</a></li>
 
-        <li><a href="#contacter">Contacter Veliko</a></li>
+
     </ul>
 </nav>
 
@@ -149,10 +151,10 @@
                 {% if app.user %}
                     <li><a href="{{ path('app_logout') }}" style="color: white; text-decoration: none;">Déconnexion</a></li>
                 {% else %}
-                    <li><a href="{{ path('app_login') }}" style="color: white; text-decoration: none;">Se connecter</a></li>
+                    <li><a href="{{ path( 'app_register') }}" style="color: white; text-decoration: none;">S'inscrire</a></li>
                 {% endif %}
-                <li><a href="{{ path('app_decouvrir_veliko') }}" style="color: white; text-decoration: none;">Découvrir Veliko</a></li>
-                <li><a href="#contacter" style="color: white; text-decoration: none;">Contacter Veliko</a></li>
+
+                <li><a href="{{ path('app_login') }}" style="color: white; text-decoration: none;">Se connecter</a></li>
             </ul>
         </div>
         <div style="flex: 1 1 300px;">
