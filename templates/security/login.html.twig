@@ -133,9 +133,12 @@
 
     <div class="container">
         <div class="heading">Connexion</div>
-        <br>
         {% if error %}
-            <div class="alert">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% if error.messageKey == 'Invalid credentials.' %}
+                <div class="alert">Identifiants invalides.</div>
+            {% else %}
+                <div class="alert">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
         {% endif %}
 
         {% if app.user %}
@@ -170,7 +173,6 @@
         </ul>
     </div>
 
-
     <script>
         function togglePasswordVisibility() {
             const passwordInput = document.getElementById('password');
@@ -188,4 +190,3 @@
     </script>
 
 {% endblock %}
-

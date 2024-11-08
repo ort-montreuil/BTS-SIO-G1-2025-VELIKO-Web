@@ -5,7 +5,6 @@
 {% block body %}
 
     <style>
-
         body {
             margin: 0;
             padding: 0;
@@ -13,25 +12,17 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-        }
-
-        main {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             background-color: #f2f2f2;
-            padding: 20px;
         }
 
         .container {
-            border: solid 1px #8d8d8d;
-            padding: 40px;
-            border-radius: 10px;
+            margin: 2em auto;
+            max-width: 600px;
+            width: 95%;
             background-color: #fff;
-            max-width: 400px;
-            width: 100%;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .heading {
@@ -39,70 +30,143 @@
             margin-bottom: 20px;
             font-weight: bold;
             text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        input[type="text"], input[type="date"], textarea {
+            width: 95%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus, input[type="date"]:focus, textarea:focus {
+            border-color: #4CAF50;
         }
 
         .btn-container {
             display: flex;
             justify-content: center;
+            margin-top: 15px;
+        }
+
+        .btn, .btn-link {
+
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 8px;
+            color: #fff;
+            font-weight: bolder;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0px 2px 3px rgba(0, 13, 56, 0.3);
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+            border: none;
         }
 
         .btn {
-            padding: 10px 20px;
-            font-size: 1rem;
-            border-radius: 10px;
             background: linear-gradient(135deg, #4CAF50, #208028);
-            color: #fff;
-            font-weight: bolder;
-            transition: all 0.2s ease;
-            box-shadow: 0px 2px 3px #000d3848;
-            width: 100%;
-            box-sizing: border-box;
-            cursor: pointer;
+        }
+
+
+        .btn:hover {
+            background-color: #45a049;
         }
 
         .btn-danger {
             background-color: #c9302c;
+            margin-top: 15px;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 8px;
             color: #fff;
+            font-weight: bolder;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0px 2px 3px rgba(0, 13, 56, 0.3);
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
             border: none;
-            transition: background-color 0.3s ease;
-            margin-left: 20px;
         }
 
         .btn-danger:hover {
             background-color: #a72824;
         }
+
+        .btn-link {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            margin-top: 10px;
+        }
+
     </style>
+
+
 
     <div class="container">
         <div class="heading">Modification d'information</div>
 
         {{ form_start(form, { 'attr': {'class': 'form'} }) }}
-        {{ form_widget(form) }}
+
+        <div class="form-group">
+            {{ form_label(form.nom, 'Nom') }}
+            {{ form_widget(form.nom) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.prenom, 'Prénom') }}
+            {{ form_widget(form.prenom) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.dateNaissance, 'Date de naissance') }}
+            {{ form_widget(form.dateNaissance) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.adresse, 'Adresse') }}
+            {{ form_widget(form.adresse) }}
+        </div>
+
+        <div class="form-group">
+            {{ form_label(form.code_postale, 'Code postal') }}
+            {{ form_widget(form.code_postale) }}
+        </div>
 
         <div class="btn-container">
             <button type="submit" class="btn">Modifier</button>
         </div>
+
         {{ form_end(form) }}
 
-
         <div class="btn-container">
-            <a href="{{ path('app_user_modif_mdp') }}" class="btn-link">Appuyer ici pour modifier votre Mots de passe</a>
+            <a href="{{ path('app_user_modif_mdp') }}" class="btn-link">Modifier votre mot de passe</a>
         </div>
+
+        <form method="post" action="{{ path('app_delete', { id: user.id }) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ?');">
+            <input type="hidden" name="_method" value="DELETE">
+            <div class="btn-container">
+                <button type="submit" class="btn-danger">Supprimer mon compte</button>
+            </div>
+        </form>
 
     </div>
-
-
-
-
-
-
-
-
-    <form method="post" action="{{ path('app_delete', { id: user.id }) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer votre compte ?');">
-        <input type="hidden" name="_method" value="DELETE">
-        <div class="btn-container">
-            <button type="submit" class="btn btn-danger">Supprimer mon compte</button>
-        </div>
-    </form>
 
 {% endblock %}

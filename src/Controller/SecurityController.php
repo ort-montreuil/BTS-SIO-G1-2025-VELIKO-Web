@@ -32,10 +32,7 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('app_home'); // Redirige vers la page d'accueil si vérifié
         }
 
-        // Si l'utilisateur essaie de se connecter
-        if ($error) {
-            $this->addFlash('error', 'Identifiants invalides.');
-        }
+
 
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,

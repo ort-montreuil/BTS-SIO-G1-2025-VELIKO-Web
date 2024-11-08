@@ -47,7 +47,8 @@ class MotsDePasseController extends AbstractController
                 $mailer->send($emailMessage);
             }
 
-            $this->addFlash('success', 'Un email de réinitialisation a été envoyé.');
+
+            $this->addFlash('success', 'Un email de réinitialisation de mot de passe vous a été envoyé.');
             return $this->redirectToRoute('app_login');
         }
 

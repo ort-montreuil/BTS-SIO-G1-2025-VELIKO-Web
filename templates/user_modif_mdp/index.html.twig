@@ -26,6 +26,7 @@
             text-align: center;
             margin-bottom: 20px;
             color: #333;
+            font-weight: bold;
         }
 
         .form-container form {
@@ -41,7 +42,7 @@
 
         .form-container .form-group label {
             font-size: 14px;
-            margin-bottom: 8px; /* Espacement entre le label et le champ */
+            margin-bottom: 8px; /* Espacement entre le label et txt */
             color: #555;
         }
 
@@ -61,14 +62,16 @@
         .form-container button {
             padding: 15px;
             font-size: 18px;
-            background-color: #4CAF50;
+            background: linear-gradient(135deg, #4CAF50, #208028);
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            width: 100%; /* Le bouton prend toute la largeur */
+            width: 100%;
+            font-weight: bold; /* Ajout du gras */
         }
+
 
         .form-container button:hover {
             background-color: #45a049;
@@ -82,10 +85,27 @@
             display: flex;
             justify-content: center;
         }
+
+        .error-message {
+            color: #c9302c;
+            background-color: #f2dede;
+            border: 1px solid #ebccd1;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+        }
     </style>
 
     <div class="form-container">
         <h1>Modifier votre mot de passe</h1>
+
+
+        {% if app.session.flashbag.has('error') %}
+            <div class="error-message">
+                {{ app.session.flashbag.get('error')[0] }}
+            </div>
+        {% endif %}
 
         <div>
             {{ form_start(form) }}
@@ -101,6 +121,7 @@
                 {{ form_label(form.confirmPassword, 'Confirmer le mot de passe') }}
                 {{ form_widget(form.confirmPassword) }}
             </div>
+
 
             {{ form_end(form) }}
         </div>
