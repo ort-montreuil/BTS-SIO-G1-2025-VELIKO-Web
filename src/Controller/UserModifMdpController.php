@@ -51,7 +51,7 @@ class UserModifMdpController extends AbstractController
 
             $this->addFlash('success', 'Le mot de passe a été modifié avec succès.');
 
-            return $this->redirectToRoute('app_user_modif_mdp');
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('user_modif_mdp/index.html.twig', [

@@ -46,7 +46,9 @@ class EditController extends AbstractController
             'controller_name' => 'EditController',
             'form' => $form->createView(),
             'user' => $user,
+
         ]);
+
     }
 
     #[Route('/delete/{id}', name: 'app_delete', methods: ['POST'])]
