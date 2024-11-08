@@ -1,0 +1,123 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.container {
+    border: solid 1px #8d8d8d;
+    padding: 40px;
+    border-radius: 10px;
+    background-color: #fff;
+    max-width: 400px; /* Augmenter la largeur maximale pour un formulaire plus large */
+    width: 100%;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    min-height: 500px; /* Augmenter la hauteur minimale */
+}
+
+.container .heading {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input-field {
+    position: relative;
+}
+
+.input-field label {
+    position: absolute;
+    color: #8d8d8d;
+    left: 10px;
+    transform: translateY(0.6rem);
+    transition: all 0.3s ease;
+}
+
+.input-field input {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: solid 1px #8d8d8d;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.input-field input:focus,
+.input-field input:valid {
+    outline: none;
+    border: solid 1px #4CAF50;
+}
+
+.input-field input:focus ~ label,
+.input-field input:valid ~ label {
+    transform: translateY(-51%) translateX(-10px) scale(0.8);
+    background-color: #fff;
+    padding: 0px 5px;
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.form .btn-container {
+    display: flex;
+    justify-content: center;
+}
+
+.form .btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #4CAF50, #208028);
+    color: #fff;
+    font-weight: bolder;
+    transition: all 0.2s ease;
+    box-shadow: 0px 2px 3px #000d3848;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.signup-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.signup-link a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+.alert {
+    color: #ff4f4f;
+    font-weight: bold;
+    text-align: center;
+}
+
+.error {
+    color: #ff4f4f; /* Couleur rouge pour les erreurs */
+    font-weight: bold;
+    margin-top: 5px;
+    text-align: left; /* Alignement à gauche */
+}
