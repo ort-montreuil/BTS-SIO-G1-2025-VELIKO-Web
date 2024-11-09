@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Entity\Station;
 use App\Entity\StationUser;
 use App\Entity\User;
+use App\Form\SearchType;
 use App\Repository\StationRepository;
 use App\Repository\StationUserRepository;
 use App\Repository\UserRepository;
@@ -33,10 +34,14 @@ class MesStationsController extends AbstractController
     }
 
     #[Route('/mes/stations', name: 'app_mes_stations')]
-    public function index(): Response
+    public function index(Request $request): Response
     {
-        // Récupérer toutes les stations
-        $stations = $this->stationRepository->findAll();
+        // Créer le formulaire de recherche
+        $form = $this->createForm(SearchType::class);
+        $form->handleRequest($request);
+
+        // Initialiser les stations à afficher (toutes ou filtrées)
+        $stations = [];
 
         // Récupérer l'utilisateur connecté
         /** @var User $user */
@@ -54,13 +59,19 @@ class MesStationsController extends AbstractController
                 'id' => $stationUser['idStation']
             ];
         }
-        $user = $this->getUser();
-        $favoriteStationIds = [];
 
+        // Vérifier si le formulaire de recherche est soumis et valide
+        if ($form->isSubmitted() && $form->isValid()) {
+            $query = $form->get('query')->getData();
+            $stations = $this->stationRepository->searchByKeyword($query); // Méthode de recherche
+        } else {
+            // Afficher toutes les stations si aucune recherche n'est effectuée
+            $stations = $this->stationRepository->findAll();
+        }
+
+        $favoriteStationIds = [];
         if ($user) {
             $stationUserRepository = $this->entityManager->getRepository(StationUser::class);
-
-            // Obtenir les stations favorites de l'utilisateur
             $favorites = $stationUserRepository->findBy(['idUser' => $user->getId()]);
             $favoriteStationIds = array_map(function ($favorite) {
                 return $favorite->getIdStation();
@@ -71,7 +82,8 @@ class MesStationsController extends AbstractController
             'controller_name' => 'MesStationsController',
             'station_names' => $stationNames,
             'stations' => $stations,
-            'favoriteStationIds' => $favoriteStationIds
+            'favoriteStationIds' => $favoriteStationIds,
+            'form' => $form->createView(),
         ]);
     }
 

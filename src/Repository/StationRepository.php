@@ -16,6 +16,14 @@ class StationRepository extends ServiceEntityRepository
         parent::__construct($registry, Station::class);
     }
 
+    public function searchByKeyword(string $keyword)
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.name LIKE :keyword')
+            ->setParameter('keyword', '%' . $keyword . '%')
+            ->getQuery()
+            ->getResult();
+    }
 //    /**
 //     * @return Station[] Returns an array of Station objects
 //     */

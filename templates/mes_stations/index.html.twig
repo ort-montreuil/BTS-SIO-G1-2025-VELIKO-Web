@@ -3,11 +3,16 @@
 {% block title %}Hello MesStationsController!{% endblock %}
 
 {% block body %}
-
         <link rel="stylesheet" href="{{ asset('css/mesStation.css') }}">
+
+        <!-- Formulaire de recherche -->
+        {{ form_start(form) }}
+        {{ form_row(form.query) }}
+        <button type="submit">Rechercher</button>
+        {{ form_end(form) }}
+
         <div class="favorites-container">
                 <h2>Mes Stations Favorites</h2>
-
                 {% for message in app.flashes('success') %}
                         <div class="message-success">{{ message }}</div>
                 {% endfor %}
@@ -25,6 +30,7 @@
                         {% endfor %}
                 </div>
         </div>
+
         <div>
                 <h2>Les stations</h2>
                 <div class="station-list">
@@ -41,7 +47,6 @@
                                                 <form action="{{ path('app_add_favorite', {'id': station.getStationId}) }}" method="post">
                                                         <button type="submit">Mettre en favoris</button>
                                                 </form>
-
                                         {% endif %}
                                 </div>
                         {% endfor %}
