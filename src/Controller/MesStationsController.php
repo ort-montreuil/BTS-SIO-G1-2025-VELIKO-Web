@@ -70,7 +70,8 @@ class MesStationsController extends AbstractController
         return $this->render('mes_stations/index.html.twig', [
             'controller_name' => 'MesStationsController',
             'station_names' => $stationNames,
-            'stations' => $stations
+            'stations' => $stations,
+            'favoriteStationIds' => $favoriteStationIds
         ]);
     }
 
