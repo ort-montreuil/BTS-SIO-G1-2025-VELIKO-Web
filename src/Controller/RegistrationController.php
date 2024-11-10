@@ -59,7 +59,6 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-
     public function confirmEmail(string $token, EntityManagerInterface $entityManager): Response
     {
         $user = $entityManager->getRepository(User::class)->findOneBy(['confirmationToken' => $token]);
@@ -70,11 +69,12 @@ class RegistrationController extends AbstractController
         }
 
         // Confirmer l'utilisateur
-        $user->setVerified(1); // Mettre à jour la vérification ici
+        $user->setVerified(1); // Mets à jour la vérification
         $user->setConfirmationToken(null);
 
         $entityManager->flush();
 
+        // Connecte l'utilisateur seulement si la confirmation a réussi
         $this->loginUser($user);
 
         $this->addFlash('success', 'Votre compte a été confirmé avec succès !');

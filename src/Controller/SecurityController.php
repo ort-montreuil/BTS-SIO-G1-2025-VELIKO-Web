@@ -25,12 +25,15 @@ class SecurityController extends AbstractController
 
         // Si l'utilisateur est déjà connecté, vérifier s'il est vérifié
         if ($this->getUser() instanceof User) {
-            if (!$this->getUser()->isVerified()==1) {
+            // Si l'utilisateur est connecté mais pas vérifié, on lui demande de vérifier son email
+            if (!$this->getUser()->isVerified()) {
                 $this->addFlash('error', 'Veuillez confirmer votre compte avant de vous connecter.');
-                return $this->redirectToRoute('app_logout'); // Redirige vers la déconnexion pour s'assurer qu'il se déconnecte
+                // Redirige vers la page d'accueil ou vers une page d'information spécifique
+                return $this->redirectToRoute('app_home'); // ou une autre route spécifique
             }
 
-            return $this->redirectToRoute('app_home'); // Redirige vers la page d'accueil si vérifié
+            // Si l'utilisateur est vérifié, redirige vers la page d'accueil
+            return $this->redirectToRoute('app_home');
         }
 
         // Si l'utilisateur n'est pas connecté, afficher le formulaire de connexion
@@ -39,7 +42,6 @@ class SecurityController extends AbstractController
             'error' => $error,
         ]);
     }
-
     #[Route(path: '/logout', name: 'app_logout')]
     public function logout(): void
     {
@@ -49,6 +51,6 @@ class SecurityController extends AbstractController
     #[Route('/check', name: 'app_login_check')]
     public function check(): Response
     {
-        return new Response(); //c'est symfoni qui s'occupe de la réponse
+        return new Response(); //c'est symfony qui s'occupe de la réponse
     }
 }
