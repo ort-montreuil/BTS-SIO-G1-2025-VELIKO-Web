@@ -7,6 +7,53 @@
     border-radius: 8px;
 }
 
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.search-input {
+    padding: 15px 20px;
+    font-size: 18px;
+    width: 100%;
+    max-width: 600px; /* Cette valeur peut être ajustée */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+
+.search-button {
+    padding: 15px 30px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px; /* Ajuste la taille du texte si nécessaire */
+    margin-left: 10px; /* Ajoute de l'espace entre l'input et le bouton */
+}
+
+.search-button {
+    padding: 15px 30px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px; /* Augmente la taille du texte du bouton */
+    margin-left: 10px; /* Espacement entre le champ de texte et le bouton */
+}
+
+.search-button:hover {
+    background-color: #45a049;
+}
+
+.search-button:active {
+    background-color: #398e3f;
+}
+
 .favorites-container h2 {
     font-size: 36px;
     text-align: center;

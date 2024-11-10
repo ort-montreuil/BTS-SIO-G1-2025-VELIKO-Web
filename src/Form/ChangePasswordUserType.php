@@ -9,8 +9,11 @@ use Symfony\Component\Form\FormBuilderInterface;
 class ChangePasswordUserType
 
 {
+
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        // Créer le formulaire de changement de mot de passe
         $builder
             ->add('currentPassword', PasswordType::class, ['label' => 'Ancien mot de passe'])
             ->add('newPassword', PasswordType::class, ['label' => 'Nouveau mot de passe'])

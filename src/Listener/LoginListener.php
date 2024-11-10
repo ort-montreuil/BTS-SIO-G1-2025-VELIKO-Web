@@ -8,6 +8,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class LoginListener implements EventSubscriberInterface
 {
+    // On définit les événements écoutés
     public static function getSubscribedEvents()
     {
         return [
@@ -15,11 +16,14 @@ class LoginListener implements EventSubscriberInterface
         ];
     }
 
+    // On vérifie si l'utilisateur est vérifié
     public function onSecurityInteractiveLogin(InteractiveLoginEvent $event)
     {
         $user = $event->getAuthenticationToken()->getUser();
 
         if (!$user->isVerified()) {
+
+            // On déconnecte l'utilisateur
             throw new AccessDeniedException('Vous devez confirmer votre compte avant de vous connecter.');
         }
     }

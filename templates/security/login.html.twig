@@ -4,17 +4,31 @@
 
 {% block body %}
 
-<link rel="stylesheet" href="{{ asset('css/login.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/login.css') }}">
 
     <div class="container">
+
         <div class="heading">Connexion</div>
-        {% if error %}
-            {% if error.messageKey == 'Invalid credentials.' %}
-                <div class="alert">Identifiants invalides.</div>
-            {% else %}
-                <div class="alert">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        <br>
+
+        {# Afficher les messages flash de succès, expiration, ou erreur ici, avant le formulaire #}
+        <div class="messages">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success" style="background-color: #28a745; color: white;">{{ message }}</div>
+            {% endfor %}
+
+            {% for message in app.flashes('expired') %}
+                <div class="alert alert-warning" style="background-color: #ffc107; color: black;">{{ message }}</div>
+            {% endfor %}
+
+            {% if error %}
+                {% if error.messageKey == 'Invalid credentials.' %}
+                    <div class="alert alert-danger">Identifiants invalides.</div>
+                {% else %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
             {% endif %}
-        {% endif %}
+        </div>
 
         {% if app.user %}
             <div class="alert">
@@ -43,9 +57,11 @@
                 <span>Pas encore de compte ? <a href="{{ path('app_register') }}">S'inscrire</a></span>
             </div>
         {% endif %}
+
         <ul>
             <a href="{{ path('app_forgot_password') }}">Réinitialiser votre mot de passe</a>
         </ul>
+
     </div>
 
     <script>
@@ -61,7 +77,6 @@
                 passIcon.textContent = '👁';
             }
         }
-
     </script>
 
 {% endblock %}

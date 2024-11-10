@@ -15,6 +15,7 @@ class ChangePasswordType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        // Créer le formulaire de changement de mot de passe
         $builder
             ->add('newPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
@@ -36,6 +37,7 @@ class ChangePasswordType extends AbstractType
                         ]),
                     ],
                 ],
+                // Ajouter un champ pour confirmer le nouveau mot de passe
                 'second_options' => [
                     'label' => 'Confirmer votre nouveau mot de passe',
                     'required' => true,

@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class EditController extends AbstractController
 {
+
     private $tokenStorage;
 
     public function __construct(TokenStorageInterface $tokenStorage)
@@ -23,25 +24,30 @@ class EditController extends AbstractController
     #[Route('/edit/{id}', name: 'app_edit', methods: ['GET', 'POST'])]
     public function edit(User $user, Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher): Response
     {
+        // Vérifier si l'utilisateur est connecté et s'il est autorisé à modifier le profil
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
+
+        // Vérifier si l'utilisateur est autorisé à modifier le profil
         if ($this->getUser()->getId() !== $user->getId()) {
             return $this->redirectToRoute('app_home');
         }
-
+        // Créer le formulaire de modification de profil
         $form = $this->createForm(EditUserType::class, $user);
         $form->handleRequest($request);
 
+        // Vérifier si le formulaire a été soumis et s'il est valide
         if ($form->isSubmitted() && $form->isValid()) {
             $user = $form->getData();
             $entityManager->persist($user);
             $entityManager->flush();
 
+            // Rediriger l'utilisateur vers la page d'accueil + message
             $this->addFlash('success', 'User updated successfully!');
-
             return $this->redirectToRoute('app_home');
         }
+        // Afficher le formulaire de modification de profil
         return $this->render('edit/index.html.twig', [
             'controller_name' => 'EditController',
             'form' => $form->createView(),
@@ -54,6 +60,7 @@ class EditController extends AbstractController
     #[Route('/delete/{id}', name: 'app_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher): Response
     {
+        // Vérifier si l'utilisateur est connecté et s'il est autorisé à supprimer le profil
         if (!$this->getUser() || $this->getUser()->getId() !== $user->getId()) {
             return $this->redirectToRoute('app_login');
         }

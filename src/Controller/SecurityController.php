@@ -25,15 +25,15 @@ class SecurityController extends AbstractController
 
         // Si l'utilisateur est déjà connecté, vérifier s'il est vérifié
         if ($this->getUser() instanceof User) {
-            if (!$this->getUser()->isVerified()) {
+            if (!$this->getUser()->isVerified()==1) {
                 $this->addFlash('error', 'Veuillez confirmer votre compte avant de vous connecter.');
                 return $this->redirectToRoute('app_logout'); // Redirige vers la déconnexion pour s'assurer qu'il se déconnecte
             }
+
             return $this->redirectToRoute('app_home'); // Redirige vers la page d'accueil si vérifié
         }
 
-
-
+        // Si l'utilisateur n'est pas connecté, afficher le formulaire de connexion
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
@@ -49,6 +49,6 @@ class SecurityController extends AbstractController
     #[Route('/check', name: 'app_login_check')]
     public function check(): Response
     {
-        return new Response(); // Retourne une réponse vide
+        return new Response(); //c'est symfoni qui s'occupe de la réponse
     }
 }

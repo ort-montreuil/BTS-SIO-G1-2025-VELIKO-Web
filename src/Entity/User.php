@@ -50,11 +50,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $confirmationToken = null;
 
-    #[ORM\Column(type: Types::SMALLINT, options: ["default" => 0])] // 0 pour non vérifié, 1 pour vérifié
-    private ?int $isVerified = 0; // Initialise à 0 (non vérifié)
+    #[ORM\Column(type: Types::SMALLINT, options: ["default" => 0])]
+    private ?int $isVerified = 0;
 
-
-    //pr renitialiser le mot de passe
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private ?string $passwordResetToken = null;
 
@@ -62,7 +60,162 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?\DateTimeInterface $passwordResetTokenExpiresAt = null;
 
 
+    // Getter and Setter for id
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
+    }
+
+    // Getter and Setter for email
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    // UserInterface methods
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    // Getter and Setter for roles
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        $roles[] = 'ROLE_USER';
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
+        return $this;
+    }
+
+    // Getter and Setter for password
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
+        return $this;
+    }
+
+    public function eraseCredentials(): void
+    {
+    }
+
+    // Getter and Setter for dateNaissance
+    public function getDateNaissance(): ?\DateTimeInterface
+    {
+        return $this->dateNaissance;
+    }
+
+    public function setDateNaissance(\DateTimeInterface $dateNaissance): static
+    {
+        $this->dateNaissance = $dateNaissance;
+        return $this;
+    }
+
+    // Getter and Setter for adresse
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(string $adresse): static
+    {
+        $this->adresse = $adresse;
+        return $this;
+    }
+
+    // Getter and Setter for ville
+    public function getVille(): ?string
+    {
+        return $this->ville;
+    }
+
+    public function setVille(string $ville): static
+    {
+        $this->ville = $ville;
+        return $this;
+    }
+
+    // Getter and Setter for codePostale
+    public function getCodePostale(): ?string
+    {
+        return $this->codePostale;
+    }
+
+    public function setCodePostale(string $codePostale): static
+    {
+        $this->codePostale = $codePostale;
+        return $this;
+    }
+
+    // Getter and Setter for nom
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): static
+    {
+        $this->nom = $nom;
+        return $this;
+    }
+
+    // Getter and Setter for prenom
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): static
+    {
+        $this->prenom = $prenom;
+        return $this;
+    }
+
+    // Getter and Setter for confirmationToken
+    public function getConfirmationToken(): ?string
+    {
+        return $this->confirmationToken;
+    }
+
+    public function setConfirmationToken(?string $confirmationToken): static
+    {
+        $this->confirmationToken = $confirmationToken;
+        return $this;
+    }
+
+    // Getter and Setter for isVerified
+    public function isVerified(): bool
+    {
+        return $this->isVerified === 1;
+    }
+
+    public function setVerified(int $isVerified): static
+    {
+        $this->isVerified = $isVerified === 1 ? 1 : 0;
+        return $this;
+    }
+
+    // Password reset methods
     public function generatePasswordResetToken(): void
     {
         $this->passwordResetToken = bin2hex(random_bytes(32));
@@ -79,16 +232,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->passwordResetTokenExpiresAt;
     }
 
-    public function setId(?int $id): void
-    {
-        $this->id = $id;
-    }
-
-    public function setIsVerified(?int $isVerified): void
-    {
-        $this->isVerified = $isVerified;
-    }
-
     public function setPasswordResetToken(?string $passwordResetToken): void
     {
         $this->passwordResetToken = $passwordResetToken;
@@ -98,157 +241,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->passwordResetTokenExpiresAt = $passwordResetTokenExpiresAt;
     }
-
-
-
-
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): static
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    public function getUserIdentifier(): string
-    {
-        return (string) $this->email;
-    }
-
-    public function getRoles(): array
-    {
-        $roles = $this->roles;
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    public function setRoles(array $roles): static
-    {
-        $this->roles = $roles;
-
-        return $this;
-    }
-
-    public function getPassword(): ?string
-    {
-        return $this->password;
-    }
-
-    public function setPassword(string $password): static
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    public function eraseCredentials(): void
-    {
-    }
-
-    public function getDateNaissance(): ?\DateTimeInterface
-    {
-        return $this->dateNaissance;
-    }
-
-    public function setDateNaissance(\DateTimeInterface $dateNaissance): static
-    {
-        $this->dateNaissance = $dateNaissance;
-
-        return $this;
-    }
-
-    public function getAdresse(): ?string
-    {
-        return $this->adresse;
-    }
-
-    public function setAdresse(string $adresse): static
-    {
-        $this->adresse = $adresse;
-
-        return $this;
-    }
-
-    public function getVille(): ?string
-    {
-        return $this->ville;
-    }
-
-    public function setVille(string $ville): static
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
-
-    public function getCodePostale(): ?string
-    {
-        return $this->codePostale;
-    }
-
-    public function setCodePostale(string $codePostale): static
-    {
-        $this->codePostale = $codePostale;
-
-        return $this;
-    }
-
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): static
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): static
-    {
-        $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    public function getConfirmationToken(): ?string
-    {
-        return $this->confirmationToken;
-    }
-
-    public function setConfirmationToken(?string $confirmationToken): static
-    {
-        $this->confirmationToken = $confirmationToken;
-
-        return $this;
-    }
-
-    public function isVerified(): bool
-    {
-        return $this->isVerified ===1 ;
-    }
-
-    public function setVerified(int $isVerified): static
-    {
-        $this->isVerified = $isVerified === 1 ? 1 : 0;
-        return $this;
-    }
-
 }

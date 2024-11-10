@@ -14,6 +14,7 @@ class EditUserType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        // Créer le formulaire de changement de Ddonnées de l'utilisateur
         $builder
             ->add('nom')
             ->add('prenom')

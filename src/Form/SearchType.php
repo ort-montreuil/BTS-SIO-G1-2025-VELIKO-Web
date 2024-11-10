@@ -11,11 +11,14 @@ class SearchType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        // Dans ton FormType (SearchType.php)
         $builder
             ->add('query', TextType::class, [
                 'label' => 'Rechercher une station',
                 'required' => false,
+                'attr' => ['class' => 'search-input']
             ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

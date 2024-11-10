@@ -25,6 +25,7 @@ class MotsDePasseController extends AbstractController
         $form = $this->createForm(PasswordResetType::class);
         $form->handleRequest($request);
 
+        // Vérifier si le formulaire a été soumis et s'il est valide
         if ($form->isSubmitted() && $form->isValid()) {
             $email = $form->get('email')->getData();
             $user = $entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
@@ -64,8 +65,10 @@ class MotsDePasseController extends AbstractController
         EntityManagerInterface $entityManager,
         UserPasswordHasherInterface $passwordHasher
     ): Response {
+        // Récupérer l'utilisateur avec le token de réinitialisation de mot de passe
         $user = $entityManager->getRepository(User::class)->findOneBy(['passwordResetToken' => $token]);
 
+        // Vérifier si l'utilisateur existe et si le token est valide
         if (!$user || $user->getPasswordResetTokenExpiresAt() < new \DateTime()) {
             $this->addFlash('error', 'Le lien de réinitialisation est invalide ou expiré.');
             return $this->redirectToRoute('app_forgot_password');
@@ -74,6 +77,7 @@ class MotsDePasseController extends AbstractController
         $form = $this->createForm(ChangePasswordType::class);
         $form->handleRequest($request);
 
+        // Vérifier si le formulaire a été soumis et s'il est valide
         if ($form->isSubmitted() && $form->isValid()) {
             $newPassword = $form->get('newPassword')->getData();
             $user->setPassword($passwordHasher->hashPassword($user, $newPassword));

@@ -16,6 +16,7 @@ class UserModifMdpController extends AbstractController
     #[Route('/user/modif/mdp', name: 'app_user_modif_mdp')]
     public function index(Request $request, UserPasswordHasherInterface $passwordHasher, Security $security, EntityManagerInterface $entityManager): Response
     {
+        // Récupérer l'utilisateur connecté
         $user = $security->getUser();
 
         if (!$user) {
@@ -29,6 +30,7 @@ class UserModifMdpController extends AbstractController
             ->add('submit', SubmitType::class, ['label' => 'Modifier le mot de passe'])
             ->getForm();
 
+        // Gérer la requête
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

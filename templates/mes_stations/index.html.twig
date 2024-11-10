@@ -6,10 +6,15 @@
         <link rel="stylesheet" href="{{ asset('css/mesStation.css') }}">
 
         <!-- Formulaire de recherche -->
-        {{ form_start(form) }}
-        {{ form_row(form.query) }}
-        <button type="submit">Rechercher</button>
-        {{ form_end(form) }}
+        <div class="search-container">
+                {{ form_start(form) }}
+                <div class="search-input-wrapper">
+                        {{ form_row(form.query, {'attr': {'class': 'search-input'}}) }}
+                </div>
+                <button type="submit" class="search-button">Rechercher</button>
+                {{ form_end(form) }}
+        </div>
+
 
         <div class="favorites-container">
                 <h2>Mes Stations Favorites</h2>

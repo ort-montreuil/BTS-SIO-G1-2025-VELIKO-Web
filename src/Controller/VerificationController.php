@@ -13,6 +13,7 @@ class VerificationController extends AbstractController
     #[Route('/verification/{token}', name: 'app_verification')]
     public function index(string $token, EntityManagerInterface $entityManager): Response
     {
+        // Récupère l'utilisateur avec le token de confirmation
         $user = $entityManager->getRepository(User::class)->findOneBy(['confirmationToken' => $token]);
 
         if (!$user) {

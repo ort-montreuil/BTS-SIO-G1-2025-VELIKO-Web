@@ -14,6 +14,7 @@ class PasswordResetType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        // Créer le formulaire de réinitialisation du mot de passe
         $builder
 
             ->add('email', EmailType::class)
