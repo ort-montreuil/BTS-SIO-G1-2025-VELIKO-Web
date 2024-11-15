@@ -22,10 +22,15 @@ APP_ENV=dev
 ```
 ### Etape 4: Création de la base de donnée
 Migrer la base de donnée.
+```
+php bin/console doctrine:migrations:migrate
+```
 ### Etape 5: Vider le cache
 ````
 php bin/console cache:clear
 ````
+### Etape 6: Réchauffer le cache
+
 ```
 php bin/console cache:warmup
 ```
