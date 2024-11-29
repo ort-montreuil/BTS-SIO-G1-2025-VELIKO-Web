@@ -8,7 +8,7 @@ git clone git@github.com:ort-montreuil/BTS-SIO-G1-2025-VELIKO-Web.git
 ### Etape 2: Installation des dependances
 Installation des dependances avec composer (vendor)
 ```
-composer install
+composer install --no-dev --optimize-autoloader
 ```
 
 ### Etape 3: Configuration du fichier .env en mode prod
