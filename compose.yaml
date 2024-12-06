@@ -3,7 +3,7 @@ services:
     container_name: mock-veliko-api
     image: bfoujols/mock-veliko-api:latest
     ports:
-      - "9042:80"
+      - "9042:80" #simule une API pour tester des interactions sans avoir besoin d'un serveur réel.
   database:
     container_name: veliko-database
     image: mariadb:latest
@@ -16,7 +16,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
       TZ: Europe/Paris
     volumes:
-      - ./var/dbdata:/var/lib/mysql
+      - ./var/dbdata:/var/lib/mysql #database configure MariaDB pour stocker les données de l'application.
   phpmyadmin:
     container_name: veliko-pma
     image: phpmyadmin/phpmyadmin
@@ -33,7 +33,7 @@ services:
     links:
       - database
     depends_on:
-      - database
+      - database #phpmyadmin permet d'interagir facilement avec la base de données via une interface web.
 
   mailer:
     container_name: veliko-mailer
@@ -43,4 +43,4 @@ services:
       - "8025:8025"
     environment:
       MP_SMTP_AUTH_ACCEPT_ANY: 1
-      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1 #mailer utilise Mailpit pour tester l'envoi d'e-mails dans l'environnement de développement
