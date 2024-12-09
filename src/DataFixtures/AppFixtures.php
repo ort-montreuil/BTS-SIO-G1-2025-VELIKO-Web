@@ -32,6 +32,8 @@ class AppFixtures extends Fixture
         $user->setCodePostale('75000');
         $user->setNom('Toto');
         $user->setPrenom('Mr');
+        $user->setBloqued(0);
+        $user->setForcedMdp(0);
         $manager->persist($user);
 
         $manager->flush();
