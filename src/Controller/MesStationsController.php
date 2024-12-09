@@ -60,6 +60,19 @@ class MesStationsController extends AbstractController
             ];
         }
 
+ /*
+ si prbl avec stationuser
+
+ public function findByIds(array $ids): array
+    {
+        return $this->createQueryBuilder('s')
+            ->where('s.id IN (:ids)')
+            ->setParameter('ids', $ids)
+            ->getQuery()
+            ->getResult();
+    }*/
+
+
         // Vérifier si le formulaire de recherche est soumis et valide
         if ($form->isSubmitted() && $form->isValid()) {
             $query = $form->get('query')->getData();

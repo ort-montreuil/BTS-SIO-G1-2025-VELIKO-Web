@@ -59,6 +59,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $passwordResetTokenExpiresAt = null;
 
+    #[ORM\Column]
+    private ?bool $is_bloqued = null;
+
+    #[ORM\Column]
+    private ?bool $is_Forced_mdp = null;
+
 
     // Getter and Setter for id
     public function getId(): ?int
@@ -240,5 +246,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPasswordResetTokenExpiresAt(?\DateTimeInterface $passwordResetTokenExpiresAt): void
     {
         $this->passwordResetTokenExpiresAt = $passwordResetTokenExpiresAt;
+    }
+
+    public function isBloqued(): ?bool
+    {
+        return $this->is_bloqued;
+    }
+
+    public function setBloqued(bool $is_bloqued): static
+    {
+        $this->is_bloqued = $is_bloqued;
+
+        return $this;
+    }
+
+    public function isForcedMdp(): ?bool
+    {
+        return $this->is_Forced_mdp;
+    }
+
+    public function setForcedMdp(bool $is_Forced_mdp): static
+    {
+        $this->is_Forced_mdp = $is_Forced_mdp;
+
+        return $this;
     }
 }
