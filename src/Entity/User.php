@@ -60,10 +60,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?\DateTimeInterface $passwordResetTokenExpiresAt = null;
 
     #[ORM\Column]
-    private ?bool $is_bloqued = null;
+    private ?bool $is_bloqued = False;
 
     #[ORM\Column]
-    private ?bool $is_Forced_mdp = null;
+    private ?bool $is_Forced_mdp = False;
 
 
     // Getter and Setter for id
