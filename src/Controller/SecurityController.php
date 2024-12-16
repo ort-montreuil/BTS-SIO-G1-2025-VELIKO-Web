@@ -31,6 +31,19 @@ class SecurityController extends AbstractController
                 // Redirige vers la page d'accueil ou vers une page d'information spécifique
                 return $this->redirectToRoute('app_home'); // ou une autre route spécifique
             }
+            if ($this->getUser()->isVerified() && $this->getUser()->isBloqued()) {
+                $this->addFlash('error', 'Votre compte a été bloqué. Veuillez contacter l\'administrateur.');
+                return $this->redirectToRoute('app_blocked');
+            }
+
+
+
+            /////////////////////////////////////////////////////////////
+           /* // Vérifier si le mot de passe a été forcé
+            if ($this->getUser()->isForcedmdp()) {
+                $this->addFlash('warning', 'Votre mot de passe a été forcé. Veuillez le changer pour continuer à vous connecter.');
+                return $this->redirectToRoute('app_user_modif_mdp'); // Redirige vers la page pr remplacer le mot de passe
+            }*/
 
             // Si l'utilisateur est vérifié, redirige vers la page d'accueil
             return $this->redirectToRoute('app_home');

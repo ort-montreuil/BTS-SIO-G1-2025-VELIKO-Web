@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\StationUser;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,9 +17,30 @@ class HomeController extends AbstractController
     {
         $this->entityManager = $entityManager;
     }
+    #[Route('/forced_mdp', name: 'app_forced_mdp')]
+    public function forced_mpd(): Response
+    {
+        return $this->render('home/forced_mdp.html.twig');
+    }
+
+    #[Route('/blocked', name: 'app_blocked')]
+    public function bloqued(): Response
+    {
+        return $this->render('home/blocked.html.twig');
+    }
+
+
+
     #[Route('/home', name: 'app_home')]
     public function index(): Response
     {
+        if($this->isGranted('IS_AUTHENTICATED_FULLY')){
+            /**@var User $user */
+            $user = $this->getUser();
+            if ($user->isBloqued()) {
+                return $this->redirectToRoute('app_blocked');
+            }
+        }
         // Récupérer les informations des stations
         $curl2 = curl_init();
 

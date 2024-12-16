@@ -1,0 +1,12 @@
+{% block body%}
+
+
+<div class="container">
+    <h2>OH NON 😱</h2>
+    <div class="alert alert-warning" role="alert">
+        Votre compte est bloqué. Veuillez contacter l'administrateur pour plus d'informations.
+    </div>
+    <a href="{{ path('app_logout') }}" class="btn btn-primary">Se déconnecter</a>
+</div>
+
+{% endblock %}
