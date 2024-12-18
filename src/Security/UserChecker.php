@@ -24,6 +24,11 @@ class UserChecker implements UserCheckerInterface
                 'Votre compte est bloqué ! Impossible de se connecter'
             );
         }
+        if($user->isForcedmdp()){
+            throw new CustomUserMessageAuthenticationException(
+                'Le changement de votre mot de passe a été forcé ! Veuillez le changer pour pouvoir vous connecter.'
+            );
+        }
     }
     public function checkPostAuth(UserInterface $user): void
     {

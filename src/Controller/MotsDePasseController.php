@@ -38,6 +38,14 @@ class MotsDePasseController extends AbstractController
                     'token' => $user->getPasswordResetToken()
                 ], UrlGeneratorInterface::ABSOLUTE_URL);
 
+                if ($user->isForcedMdp()){
+                    $emailMessage = (new Email())
+                        ->from('noreply@example.com')
+                        ->to($user->getEmail())
+                        ->subject('Renouvellement de mot de passe')
+                        ->html("Cliquez sur le lien suivant pour renouveler votre mot de passe : <a href='$resetLink'>Renouveler le mot de passe</a>");
+                    $mailer->send($emailMessage);
+                }else{
 
                 $emailMessage = (new Email())
                     ->from('noreply@example.com')
@@ -46,10 +54,11 @@ class MotsDePasseController extends AbstractController
                     ->html("Cliquez sur le lien suivant pour réinitialiser votre mot de passe : <a href='$resetLink'>Réinitialiser le mot de passe</a>");
 
                 $mailer->send($emailMessage);
+                }
             }
 
 
-            $this->addFlash('success', 'Un email de réinitialisation de mot de passe vous a été envoyé.');
+            $this->addFlash('success', 'Un email de modification de mot de passe vous a été envoyé.');
             return $this->redirectToRoute('app_login');
         }
 
@@ -85,8 +94,16 @@ class MotsDePasseController extends AbstractController
             $user->setPasswordResetTokenExpiresAt(null);
             $entityManager->flush();
 
+            if ($user->isForcedMdp()){
+                $user->setForcedMdp(false);
+                $entityManager->flush();
+                $this->addFlash('success', 'Votre mot de passe a été renouvellé.');
+                return $this->redirectToRoute('app_login');
+            }else{
+
             $this->addFlash('success', 'Votre mot de passe a été réinitialisé.');
             return $this->redirectToRoute('app_login');
+            }
         }
 
         return $this->render('mots_de_passe/passwordReset.html.twig', [
