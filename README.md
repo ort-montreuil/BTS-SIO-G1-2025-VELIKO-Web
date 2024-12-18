@@ -28,7 +28,7 @@ php bin/console app:fetch-stations
 ````
 symfony serve:start
 ````
-### Etape 8: Avoir un admin pour accéder à la partie admin
+### Etape 8: Avoir un admin pour accéder à la partie admin 
 ````
 symfony console d:f:l
 ````
