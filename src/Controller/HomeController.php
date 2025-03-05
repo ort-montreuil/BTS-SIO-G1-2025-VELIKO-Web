@@ -17,11 +17,20 @@ class HomeController extends AbstractController
     {
         $this->entityManager = $entityManager;
     }
+    #[Route('/forced_mdp', name: 'app_forced_mdp')]
+    public function forced_mpd(): Response
+    {
+        return $this->render('home/forced_mdp.html.twig');
+    }
+
     #[Route('/blocked', name: 'app_blocked')]
     public function bloqued(): Response
     {
         return $this->render('home/blocked.html.twig');
     }
+
+
+
     #[Route('/home', name: 'app_home')]
     public function index(): Response
     {

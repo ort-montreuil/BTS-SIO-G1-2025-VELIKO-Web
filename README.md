@@ -11,7 +11,7 @@ composer install
 ```
 ### Etape 3: Comfiguration du fichier .env
 Créer un fichier .env à la racine du projet et renommer le en .env puis modifier la ligne 3 "!ChangeMe!" remplacer par votre id et votre mot de passe de votre base de donnée.
-### Etape 4: Création de la base de donnée
+### Etape 4: Création de la base de donnée 
 ````
 docker compose up -d
 ````
@@ -28,5 +28,8 @@ php bin/console app:fetch-stations
 ````
 symfony serve:start
 ````
-
+### Etape 8: Avoir un admin pour accéder à la partie admin  
+````
+symfony console d:f:l
+````
 #### Lien vers le notion du projet : https://reinvented-entrance-efd.notion.site/PROJET-VELIKO-139d0db2706880c4b25bf548397991ba?pvs=4

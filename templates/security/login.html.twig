@@ -10,7 +10,6 @@
 
         <div class="heading">Connexion</div>
         <br>
-
         {# Afficher les messages flash de succès, expiration, ou erreur ici, avant le formulaire #}
         <div class="messages">
             {% for message in app.flashes('success') %}
@@ -31,6 +30,12 @@
         </div>
 
         {% if app.user %}
+            {# Vérifiez si l'utilisateur a forcé son changement de mot de passe #}
+            {% if app.user.isForcedMdp() %}
+                <div class="alert alert-danger">
+                    Vous devez changer votre mot de passe avant de pouvoir vous connecter.
+                </div>
+            {% endif %}
             <div class="alert">
                 Vous êtes connecté en tant que {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
             </div>
@@ -59,7 +64,9 @@
         {% endif %}
 
         <ul>
-            <a href="{{ path('app_forgot_password') }}">Réinitialiser votre mot de passe</a>
+            <a href="{{ path('app_forgot_password') }}">Mot de passe oublié ?</a>
+            <br>
+            <a href="{{ path('app_forgot_password') }}">Renouveller votre mot de passe</a>
         </ul>
 
     </div>
