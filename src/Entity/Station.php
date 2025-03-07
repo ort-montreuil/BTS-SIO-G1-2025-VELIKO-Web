@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\StationRepository;
@@ -10,7 +9,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Station
 {
     #[ORM\Id]
-
     #[ORM\Column(type: Types::BIGINT)]
     private ?string $station_id = null;
 
@@ -37,7 +35,6 @@ class Station
     public function setStationId(string $station_id): static
     {
         $this->station_id = $station_id;
-
         return $this;
     }
 
@@ -49,7 +46,6 @@ class Station
     public function setStationCode(int $station_code): static
     {
         $this->station_code = $station_code;
-
         return $this;
     }
 
@@ -61,7 +57,6 @@ class Station
     public function setName(string $name): static
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -73,7 +68,6 @@ class Station
     public function setLat(float $lat): static
     {
         $this->lat = $lat;
-
         return $this;
     }
 
@@ -85,7 +79,6 @@ class Station
     public function setLon(float $lon): static
     {
         $this->lon = $lon;
-
         return $this;
     }
 
@@ -97,7 +90,7 @@ class Station
     public function setCapacity(int $capacity): static
     {
         $this->capacity = $capacity;
-
         return $this;
     }
 }
+

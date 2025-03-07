@@ -49,6 +49,7 @@
                                                         <button type="submit">Retirer des favoris</button>
                                                 </form>
                                         {% else %}
+
                                                 <form action="{{ path('app_add_favorite', {'id': station.getStationId}) }}" method="post">
                                                         <button type="submit">Mettre en favoris</button>
                                                 </form>

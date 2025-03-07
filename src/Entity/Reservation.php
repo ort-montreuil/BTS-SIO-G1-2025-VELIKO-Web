@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\ReservationRepository;
@@ -14,98 +13,86 @@ class Reservation
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 100)]
-    private ?string $email_user = null;
+    #[ORM\Column]
+    private ?int $idUser = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $date = null;
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $dateReservation = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $heure_debut = null;
+    #[ORM\ManyToOne(targetEntity: Station::class)]
+    #[ORM\JoinColumn(name: "station_id_depart", referencedColumnName: "station_id", nullable: false)]
+    private ?Station $idStationDepart = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $heure_fin = null;
+    #[ORM\ManyToOne(targetEntity: Station::class)]
+    #[ORM\JoinColumn(name: "station_id_arrivee", referencedColumnName: "station_id", nullable: false)]
+    private ?Station $idStationArrivee = null;
 
-    #[ORM\Column(type: Types::BIGINT)]
-    private ?string $id_station_depart = null;
-
-    #[ORM\Column(type: Types::BIGINT)]
-    private ?string $id_station_arrive = null;
+    #[ORM\Column(length: 25)]
+    private ?string $typeVelo = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getEmailUser(): ?string
+    public function setId(int $id): static
     {
-        return $this->email_user;
-    }
-
-    public function setEmailUser(string $email_user): static
-    {
-        $this->email_user = $email_user;
-
+        $this->id = $id;
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getIdUser(): ?int
     {
-        return $this->date;
+        return $this->idUser;
     }
 
-    public function setDate(\DateTimeInterface $date): static
+    public function setIdUser(int $idUser): static
     {
-        $this->date = $date;
-
+        $this->idUser = $idUser;
         return $this;
     }
 
-    public function getHeureDebut(): ?\DateTimeInterface
+    public function getDateReservation(): ?\DateTimeInterface
     {
-        return $this->heure_debut;
+        return $this->dateReservation;
     }
 
-    public function setHeureDebut(\DateTimeInterface $heure_debut): static
+    public function setDateReservation(\DateTimeInterface $dateReservation): static
     {
-        $this->heure_debut = $heure_debut;
-
+        $this->dateReservation = $dateReservation;
         return $this;
     }
 
-    public function getHeureFin(): ?\DateTimeInterface
+    public function getIdStationDepart(): ?Station
     {
-        return $this->heure_fin;
+        return $this->idStationDepart;
     }
 
-    public function setHeureFin(\DateTimeInterface $heure_fin): static
+    public function setIdStationDepart(?Station $idStationDepart): static
     {
-        $this->heure_fin = $heure_fin;
-
+        $this->idStationDepart = $idStationDepart;
         return $this;
     }
 
-    public function getIdStationDepart(): ?string
+    public function getIdStationArrivee(): ?Station
     {
-        return $this->id_station_depart;
+        return $this->idStationArrivee;
     }
 
-    public function setIdStationDepart(string $id_station_depart): static
+    public function setIdStationArrivee(?Station $idStationArrivee): static
     {
-        $this->id_station_depart = $id_station_depart;
-
+        $this->idStationArrivee = $idStationArrivee;
         return $this;
     }
 
-    public function getIdStationArrive(): ?string
+    public function getTypeVelo(): ?string
     {
-        return $this->id_station_arrive;
+        return $this->typeVelo;
     }
 
-    public function setIdStationArrive(string $id_station_arrive): static
+    public function setTypeVelo(string $typeVelo): static
     {
-        $this->id_station_arrive = $id_station_arrive;
-
+        $this->typeVelo = $typeVelo;
         return $this;
     }
 }

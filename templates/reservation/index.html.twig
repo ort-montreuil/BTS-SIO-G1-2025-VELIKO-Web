@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une réservation{% endblock %}
+
+{% block body %}
+    <link rel="stylesheet" href="{{ asset('css/reservation.css') }}">
+
+    <h1>Créer une réservation</h1>
+
+    {{ form_start(form) }}
+    <br>
+    {{ form_row(form.dateReservation) }}
+    <br>
+    {{ form_row(form.idStationDepart) }}
+    <br>
+    {{ form_row(form.idStationArrivee) }}
+    <br>
+    {{ form_row(form.typeVelo) }}
+    <br>
+    {{ form_end(form) }}
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+{% endblock %}

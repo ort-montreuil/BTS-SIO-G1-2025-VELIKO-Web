@@ -95,7 +95,6 @@
         <img src="{{ asset('Images/logo copie.png') }}" alt="Logo">
     </a>
     <h1>Avec VELIKO roulez comme un pro</h1>
-    <h1>Test AHI</h1>
 
     <div class="user-name">
         {% if app.user %}
@@ -111,6 +110,8 @@
             <li><a href="{{ path('app_edit', { id: app.user.id }) }}">Mon compte</a></li>
             <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
             <li><a href="{{ path('app_mes_stations', { id: app.user.id }) }}">Mes Stations Favorites</a></li>
+            <li><a href="{{ path('app_reservation', { id: app.user.id }) }}">Mes Reservations</a></li>
+
 
         {% else %}
 
