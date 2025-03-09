@@ -36,6 +36,7 @@ class AppFixtures extends Fixture
         $usersData = [
             ['email' => 'user1@example.com', 'nom' => 'Dupont', 'prenom' => 'Jean', 'ville' => 'Paris', 'codePostale' => '75001'],
             ['email' => 'user2@example.com', 'nom' => 'Martin', 'prenom' => 'Pierre', 'ville' => 'Lyon', 'codePostale' => '69001'],
+            ['email' => 'user3@example.com', 'nom' => 'Bernard', 'prenom' => 'Sophie', 'ville' => 'Marseille', 'codePostale' => '13001'],
             // Add more users as needed
         ];
 
@@ -58,17 +59,18 @@ class AppFixtures extends Fixture
             $user->setForcedMdp(false);
             $manager->persist($user);
         }
+
+
 //marche ps
         //---------Reservations----------
+        $user = $manager->getRepository(User::class)->findAll();
         $stations = $manager->getRepository(Station::class)->findAll();
 
-        if (count($stations) > 1) {
+        if (count($user) > 0 && count($stations) > 1) {
             for ($i = 1; $i <= 10; $i++) {
                 $reservation = new Reservation();
-                $reservation->setIdUser($i); // Assuming user ID starts at 1
+                $reservation->setIdUser($user[array_rand($user)]);
                 $reservation->setDateReservation((new \DateTime())->setTimestamp(mt_rand(strtotime('2010-01-01'), strtotime('2024-12-31'))));
-                $reservation->setHeureDebut((new \DateTime())->setTimestamp(mt_rand(1, time())));
-                $reservation->setHeureFin((new \DateTime())->setTimestamp(mt_rand(1, time())));
                 $reservation->setIdStationDepart($stations[array_rand($stations)]);
                 $reservation->setIdStationArrivee($stations[array_rand($stations)]);
                 $reservation->setTypeVelo(['Electrique', 'Mecanique'][array_rand(['Electrique', 'Mecanique'])]);
