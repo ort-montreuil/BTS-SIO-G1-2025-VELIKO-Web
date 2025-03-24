@@ -17,12 +17,12 @@ docker compose up -d
 ````
 ### Etape 5: Migration de la base de donnée
 ````
-php bin/console doctrine:migrations:migrate
+symfony console doctrine:migrations:migrate
 ````
 
 ### Etape 6: Mettre les stations dans la base de donnée
 ````
-php bin/console app:fetch-stations  
+symfony console app:fetch-stations  
 ````
 ### Etape 7: Lancer le serveur
 ````
