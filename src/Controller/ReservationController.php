@@ -58,6 +58,7 @@ class ReservationController extends AbstractController
 
                     $majResponse = $this->makeCurl("/api/velos", "GET", "");
                     foreach ($majResponse as $veloMaj)
+
                         // Vérifier si le vélo est en location et doit être ramené à la station de fin
                         if ((int) $veloMaj["station_id_available"] != (int) $idStationArrivee
                             && $veloMaj["status"] == "location") {
@@ -85,7 +86,7 @@ class ReservationController extends AbstractController
                         throw $this->createNotFoundException("Station non trouvée pour l'ID " . $idStationArrivee);
                     }
 
-                    $reservation->setIdStationDepart($stationArr);
+                    $reservation->setIdStationArrivee($stationArr);
                     $entityManager->persist($reservation);
                     $entityManager->flush();
 
@@ -113,7 +114,7 @@ class ReservationController extends AbstractController
 
         curl_setopt_array($curl, [
             CURLOPT_PORT => "9042",
-            CURLOPT_URL => $_ENV["API_VELIKO_URL"] . $url,
+            CURLOPT_URL => "http://127.0.0.1:9042" . $url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 30,
