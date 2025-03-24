@@ -37,7 +37,13 @@ class AppFixtures extends Fixture
             ['email' => 'user1@example.com', 'nom' => 'Dupont', 'prenom' => 'Jean', 'ville' => 'Paris', 'codePostale' => '75001'],
             ['email' => 'user2@example.com', 'nom' => 'Martin', 'prenom' => 'Pierre', 'ville' => 'Lyon', 'codePostale' => '69001'],
             ['email' => 'user3@example.com', 'nom' => 'Bernard', 'prenom' => 'Sophie', 'ville' => 'Marseille', 'codePostale' => '13001'],
-            // Add more users as needed
+            ['email' => 'user4@exemple.com', 'nom' => 'Doe', 'prenom' => 'John', 'ville' => 'Lille', 'codePostale' => '59000'],
+            ['email' => 'user5@exemple.com', 'nom' => 'Doe', 'prenom' => 'Jane', 'ville' => 'Bordeaux', 'codePostale' => '33000'],
+            ['email' => 'user6@example.com', 'nom' => 'Durand', 'prenom' => 'Alice', 'ville' => 'Nantes', 'codePostale' => '44000'],
+            ['email' => 'user7@example.com', 'nom' => 'Petit', 'prenom' => 'Louis', 'ville' => 'Toulouse', 'codePostale' => '31000'],
+            ['email' => 'user8@example.com', 'nom' => 'Moreau', 'prenom' => 'Emma', 'ville' => 'Nice', 'codePostale' => '06000'],
+            ['email' => 'user9@example.com', 'nom' => 'Lefevre', 'prenom' => 'Lucas', 'ville' => 'Strasbourg', 'codePostale' => '67000'],
+            ['email' => 'user10@example.com', 'nom' => 'Roux', 'prenom' => 'Chloe', 'ville' => 'Montpellier', 'codePostale' => '34000'],
         ];
 
         foreach ($usersData as $data) {
