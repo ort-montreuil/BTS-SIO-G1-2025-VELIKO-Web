@@ -45,7 +45,7 @@ class HomeController extends AbstractController
         $curl2 = curl_init();
 
         curl_setopt_array($curl2, [
-            CURLOPT_URL => $_ENV["API_VELIKO_URL"] . "/stations/status",
+            CURLOPT_URL => $_ENV["API_VELIKO_URL"] . "/api/stations/status",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 20,
@@ -69,7 +69,7 @@ class HomeController extends AbstractController
         $curl = curl_init();
 
         curl_setopt_array($curl, [
-            CURLOPT_URL => $_ENV["API_VELIKO_URL"] . "/stations",
+            CURLOPT_URL => $_ENV["API_VELIKO_URL"] . "/api/stations",
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_MAXREDIRS => 10,
             CURLOPT_TIMEOUT => 20,

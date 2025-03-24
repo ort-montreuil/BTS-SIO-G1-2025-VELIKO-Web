@@ -31,7 +31,6 @@ class ReservationType extends AbstractType
             ])
 
 
-
             ->add('idStationArrivee', EntityType::class, [
                 'class' => Station::class,
                 'choice_label' => 'name',
@@ -41,8 +40,8 @@ class ReservationType extends AbstractType
             ->add('typeVelo', ChoiceType::class, [
                 'label' => 'Type de Vélo',
                 'choices' => [
-                    'Vélo classique' => 'classique',
-                    'Vélo électrique' => 'electrique',
+                    'Vélo classique' => 'mechanical',
+                    'Vélo électrique' => 'ebike',
                 ],
             ])
             ->add('submit', SubmitType::class, [

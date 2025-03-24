@@ -5,6 +5,10 @@
 {% block body %}
     <link rel="stylesheet" href="{{ asset('css/reservation.css') }}">
 
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
     <h1>Créer une réservation</h1>
 
     {{ form_start(form) }}
@@ -18,8 +22,4 @@
     {{ form_row(form.typeVelo) }}
     <br>
     {{ form_end(form) }}
-
-    {% for message in app.flashes('success') %}
-        <div class="alert alert-success">{{ message }}</div>
-    {% endfor %}
 {% endblock %}
