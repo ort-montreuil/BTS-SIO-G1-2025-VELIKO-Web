@@ -17,6 +17,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+//oublie et reinitialisation de mot de passe
 class MotsDePasseController extends AbstractController
 {
     #[Route('/forgot-password', name: 'app_forgot_password')]

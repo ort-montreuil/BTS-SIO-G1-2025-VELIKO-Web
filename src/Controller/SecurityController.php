@@ -8,6 +8,9 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
+//connexion user
+//Gere la connexion et la déconnexion des utilisateurs et verifie si l'utilisateur est vérifié ou bloqué avant de lui permettre de se connecter
+
 class SecurityController extends AbstractController
 {
     private $tokenStorage;
@@ -25,11 +28,12 @@ class SecurityController extends AbstractController
 
         // Si l'utilisateur est déjà connecté, vérifier s'il est vérifié
         if ($this->getUser() instanceof User) {
+
             // Si l'utilisateur est connecté mais pas vérifié, on lui demande de vérifier son email
             if (!$this->getUser()->isVerified()) {
                 $this->addFlash('error', 'Veuillez confirmer votre compte avant de vous connecter.');
                 // Redirige vers la page d'accueil ou vers une page d'information spécifique
-                return $this->redirectToRoute('app_home'); // ou une autre route spécifique
+                return $this->redirectToRoute('app_home');
             }
             if ($this->getUser()->isVerified() && $this->getUser()->isBloqued()) {
                 $this->addFlash('error', 'Votre compte a été bloqué. Veuillez contacter l\'administrateur.');
@@ -45,13 +49,16 @@ class SecurityController extends AbstractController
                 return $this->redirectToRoute('app_user_modif_mdp'); // Redirige vers la page pr remplacer le mot de passe
             }*/
 
+
             // Si l'utilisateur est vérifié, redirige vers la page d'accueil
             return $this->redirectToRoute('app_home');
         }
 
         // Si l'utilisateur n'est pas connecté, afficher le formulaire de connexion
         return $this->render('security/login.html.twig', [
+            // le nom de l'utilisateur saisi précédemment ds inscription
             'last_username' => $lastUsername,
+            // le message d'erreur de connexion
             'error' => $error,
         ]);
     }

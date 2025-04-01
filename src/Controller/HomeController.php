@@ -17,6 +17,7 @@ class HomeController extends AbstractController
     {
         $this->entityManager = $entityManager;
     }
+
     #[Route('/forced_mdp', name: 'app_forced_mdp')]
     public function forced_mpd(): Response
     {
@@ -34,9 +35,11 @@ class HomeController extends AbstractController
     #[Route('/home', name: 'app_home')]
     public function index(): Response
     {
+        // Vérifier si l'utilisateur est authentifié
         if($this->isGranted('IS_AUTHENTICATED_FULLY')){
             /**@var User $user */
             $user = $this->getUser();
+            // Vérifier si l'utilisateur est blouqué ds la bdd
             if ($user->isBloqued()) {
                 return $this->redirectToRoute('app_blocked');
             }
@@ -91,6 +94,7 @@ class HomeController extends AbstractController
         }
 
         $stations = [];
+
 
         // afficher les informations des stations
         foreach ($response as $infostat) {

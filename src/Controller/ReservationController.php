@@ -32,7 +32,6 @@ class ReservationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             //location velo: venir retirer le velo
 
-
             $idStationDepart = $form->get('idStationDepart')->getData()->getStationId();
 
             $typeVelo = $form->get('typeVelo')->getData();
@@ -47,7 +46,6 @@ class ReservationController extends AbstractController
                 $idVelo = $velo["velo_id"];
 
 
-
                 // Vérifier si le vélo est disponible à la station de départ
                 if ((int) $velo["station_id_available"] == (int) $idStationDepart
                     && $velo["status"] == "available"
@@ -55,6 +53,7 @@ class ReservationController extends AbstractController
 
                     // Mettre le vélo en location
                     $this->makeCurl("/api/velo/{$idVelo}/location", "PUT", "RG6F8do7ERFGsEgwkPEdW1Feyus0LXJ21E2EZRETTR65hN9DL8a3O8a");
+
 
                     $majResponse = $this->makeCurl("/api/velos", "GET", "");
                     foreach ($majResponse as $veloMaj)
@@ -68,8 +67,10 @@ class ReservationController extends AbstractController
                         }else{
                             $this->addFlash('danger', 'Pas de possibilité de remettre le vélo à la station d\'arrivée');
                         }
+                    // Enregistrer la réservation dans la base de données
                     $reservation = $form->getData();
                     $reservation->setIdUser($user->getId());
+
                    // $reservation->setIdStationDepart($form->get('idStationDepart')->getData()->getStationId());
                     $stationDep = $entityManager->getRepository(Station::class)->find((int) $idStationDepart);
 
@@ -86,6 +87,7 @@ class ReservationController extends AbstractController
                         throw $this->createNotFoundException("Station non trouvée pour l'ID " . $idStationArrivee);
                     }
 
+                    // Associer la station d'arrivée à la réservation
                     $reservation->setIdStationArrivee($stationArr);
                     $entityManager->persist($reservation);
                     $entityManager->flush();
@@ -98,9 +100,11 @@ class ReservationController extends AbstractController
 
                 }
             }
-        }else{
+        }else
+        {
             $this->addFlash('danger', 'Veuillez remplir correctement le formulaire');
         }
+
         return $this->render('reservation/index.html.twig', [
             'form' => $form->createView(),
         ]);

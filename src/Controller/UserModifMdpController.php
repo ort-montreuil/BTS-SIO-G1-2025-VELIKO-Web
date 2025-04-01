@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Routing\Annotation\Route;
 
+//modif mdp de l'utilisateur connecté
 class UserModifMdpController extends AbstractController
 {
     #[Route('/user/modif/mdp', name: 'app_user_modif_mdp')]

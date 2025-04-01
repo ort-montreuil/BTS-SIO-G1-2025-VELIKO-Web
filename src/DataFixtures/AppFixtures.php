@@ -66,25 +66,35 @@ class AppFixtures extends Fixture
             $manager->persist($user);
         }
 
-
-//marche ps
         //---------Reservations----------
-        $user = $manager->getRepository(User::class)->findAll();
+        // Récupérer les utilisateurs et les stations depuis la base de données
+        $users = $manager->getRepository(User::class)->findAll();
         $stations = $manager->getRepository(Station::class)->findAll();
 
-        if (count($user) > 0 && count($stations) > 1) {
+        if (count($users) > 0 && count($stations) > 1) {
             for ($i = 1; $i <= 10; $i++) {
                 $reservation = new Reservation();
-                $reservation->setIdUser($user[array_rand($user)]);
+                $reservation->setIdUser($users[array_rand($users)]);
                 $reservation->setDateReservation((new \DateTime())->setTimestamp(mt_rand(strtotime('2010-01-01'), strtotime('2024-12-31'))));
-                $reservation->setIdStationDepart($stations[array_rand($stations)]);
-                $reservation->setIdStationArrivee($stations[array_rand($stations)]);
+
+                // Sélection aléatoire de la station de départ
+                $stationDepart = $stations[array_rand($stations)];
+
+                // Sélection de la station d'arrivée, différente de la station de départ
+                do {
+                    $stationArrivee = $stations[array_rand($stations)];
+                } while ($stationDepart === $stationArrivee); // Boucle pour s'assurer qu'elles sont différentes
+
+                $reservation->setIdStationDepart($stationDepart);
+                $reservation->setIdStationArrivee($stationArrivee);
                 $reservation->setTypeVelo(['Electrique', 'Mecanique'][array_rand(['Electrique', 'Mecanique'])]);
+
+                // Sauvegarder la réservation
                 $manager->persist($reservation);
             }
         }
 
-        // Save all entities
+        // Sauvegarder toutes les entités
         $manager->flush();
     }
 }

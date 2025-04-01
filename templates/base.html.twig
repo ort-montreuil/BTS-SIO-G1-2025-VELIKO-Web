@@ -92,6 +92,7 @@
 
 <header>
     <a href="{{ path('app_home') }}">
+
         <img src="{{ asset('Images/logo copie.png') }}" alt="Logo">
     </a>
     <h1>Avec VELIKO roulez comme un pro</h1>
@@ -106,7 +107,10 @@
 <!-- Barre de menu -->
 <nav>
     <ul>
+        <!-- Affichage du nom de l'utilisateur s'il est connecté -->
         {% if app.user %}
+        <!--Donc affichage des diff pages -->
+
             <li><a href="{{ path('app_edit', { id: app.user.id }) }}">Mon compte</a></li>
             <li><a href="{{ path('app_logout') }}">Déconnexion</a></li>
             <li><a href="{{ path('app_mes_stations', { id: app.user.id }) }}">Mes Stations Favorites</a></li>
@@ -114,10 +118,12 @@
 
 
         {% else %}
+        <!-- sinon affi pr sinscrire et se connecter -->
 
             <li><a href="{{ path('app_register') }}">S'inscrire</a></li>
             <li><a href="{{ path('app_login') }}">Se connecter</a></li>
         {% endif %}
+        <!-- ds tt les cas ya ca -->
         <li><a href="{{ path('app_decouvrir_veliko') }}">Découvrir Veliko</a></li>
 
 

@@ -33,6 +33,7 @@ class RegistrationController extends AbstractController
             $plainPassword = $form->get('plainPassword')->getData();
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
 
+            // Générer un token de confirmation pour l'utilisateur
             $token = GenerateToken::generateNewToken(32);
             $user->setConfirmationToken($token);
 

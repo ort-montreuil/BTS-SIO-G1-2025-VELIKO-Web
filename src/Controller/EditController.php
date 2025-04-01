@@ -11,6 +11,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
+// Edition du profil utilisateur
 class EditController extends AbstractController
 {
 
@@ -33,12 +34,14 @@ class EditController extends AbstractController
         if ($this->getUser()->getId() !== $user->getId()) {
             return $this->redirectToRoute('app_home');
         }
+
         // Créer le formulaire de modification de profil
         $form = $this->createForm(EditUserType::class, $user);
         $form->handleRequest($request);
 
         // Vérifier si le formulaire a été soumis et s'il est valide
         if ($form->isSubmitted() && $form->isValid()) {
+           //Verif si modif si oui modif ds la bdd
             $user = $form->getData();
             $entityManager->persist($user);
             $entityManager->flush();

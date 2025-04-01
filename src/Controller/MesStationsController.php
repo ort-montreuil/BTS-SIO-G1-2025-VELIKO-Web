@@ -83,6 +83,8 @@ class MesStationsController extends AbstractController
         }
 
         $favoriteStationIds = [];
+        // Récupérer les IDs des stations favorites de l'utilisateur
+
         if ($user) {
             $stationUserRepository = $this->entityManager->getRepository(StationUser::class);
             $favorites = $stationUserRepository->findBy(['idUser' => $user->getId()]);

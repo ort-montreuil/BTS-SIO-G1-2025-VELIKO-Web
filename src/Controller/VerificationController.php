@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 
+// Confirmation de l'utilisateur si lien mail ok
 class VerificationController extends AbstractController
 {
     #[Route('/verification/{token}', name: 'app_verification')]
